@@ -1,0 +1,74 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/font-roboto/roboto.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
+
+<dom-module id="paper-typeahead">
+  <template>
+    <style>
+      :host {
+        font-family: "Roboto";
+      }
+      paper-item:hover {
+        background: var(--google-grey-100);
+      }
+      paper-item {
+        cursor: pointer;
+        position: relative;
+        border-bottom: solid 1px var(--google-grey-500);
+      }
+    </style>
+    <paper-input label="[[inputLabel]]" value="{{input}}"></paper-input>
+    <div class="results">
+      <template is="dom-repeat" items="[[filteredItems]]">
+        <paper-item on-tap="selected">
+          <paper-item-body>
+            <span>[[item]]</span>
+            <paper-ripple></paper-ripple>
+          </paper-item-body>
+        </paper-item>
+      </template>
+    </div>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'paper-typeahead',
+        properties: {
+          input: String,
+          inputLabel: {
+            type: String,
+            value: ''
+          },
+          data: Array,
+          filterFn: {
+            type: Function,
+            value: function() {
+              return function(data, input) {
+                var r = RegExp(input, 'i');
+                return data.filter(function(v) {
+                  return v.match(r);
+                });
+              };
+            }
+          },
+          filteredItems: {
+            type: Array,
+            computed: "getFiltered(data, input, filterFn)"
+          }
+        },
+        selected: function(e) {
+          this.fire('itemSelected', {details: e.model.item});
+        },
+        getFiltered: function(data, input, filterFn) {
+          return filterFn.call(this, data, input);
+        }
+      });
+    })();
+  </script>
+</dom-module>
+
