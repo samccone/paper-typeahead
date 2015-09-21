@@ -21,4 +21,7 @@ function(data, input) { return data; }
 * [ ] Add conditional empty list template
 * [ ] Use iron-list to display results
 * [ ] Add better style interface
+* [ ] jsdoc all the methods
+* [ ] extract js to external file
+* [ ] add tests
 * [ ] Any other ideas welcome 🎷
