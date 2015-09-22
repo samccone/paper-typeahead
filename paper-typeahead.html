@@ -20,15 +20,17 @@
         border-bottom: solid 1px var(--google-grey-500);
       }
     </style>
-    <paper-input label="[[inputLabel]]" value="{{input}}"></paper-input>
+    <paper-input on-blur="onBlur" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
     <div class="results">
-      <template is="dom-repeat" items="[[filteredItems]]">
-        <paper-item on-tap="selected">
-          <paper-item-body>
-            <span>[[item]]</span>
-            <paper-ripple></paper-ripple>
-          </paper-item-body>
-        </paper-item>
+      <template is="dom-if" if="[[!hideResults]]">
+        <template is="dom-repeat" items="[[filteredItems]]">
+          <paper-item on-tap="selected">
+            <paper-item-body>
+              <span>[[item]]</span>
+              <paper-ripple></paper-ripple>
+            </paper-item-body>
+          </paper-item>
+        </template>
       </template>
     </div>
   </template>

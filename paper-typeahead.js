@@ -4,6 +4,10 @@
     is: 'paper-typeahead',
     properties: {
       input: String,
+      hideResults: {
+        type: Boolean,
+        value: false
+      },
       inputLabel: {
         type: String,
         value: ''
@@ -29,6 +33,12 @@
         type: Array,
         computed: 'getFiltered(data, input, filterFn)'
       }
+    },
+    onBlur: function() {
+      this.hideResults = true;
+    },
+    onFocus: function() {
+      this.hideResults = false;
     },
     selected: function(e) {
       this.fire('itemSelected', {details: e.model.item});
