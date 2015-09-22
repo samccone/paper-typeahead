@@ -34,6 +34,9 @@
         computed: 'getFiltered(data, input, filterFn)'
       }
     },
+    listeners: {
+      'blur': 'onBlur',
+    },
     onBlur: function() {
       this.hideResults = true;
     },
@@ -41,7 +44,9 @@
       this.hideResults = false;
     },
     selected: function(e) {
+      this.input = e.model.item;
       this.fire('itemSelected', {details: e.model.item});
+      this.fire('blur');
     },
     getFiltered: function(data, input, filterFn) {
       return filterFn.call(this, data, input);
