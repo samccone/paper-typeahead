@@ -14,6 +14,11 @@
         value: function() {
           return function(data, input) {
             var r = RegExp(input, 'i');
+
+            if (input === '') {
+              return [];
+            }
+
             return data.filter(function(v) {
               return v.match(r);
             });
