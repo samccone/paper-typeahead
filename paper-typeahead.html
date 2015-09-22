@@ -1,9 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 <link rel="import" href="bower_components/font-roboto/roboto.html">
-<link rel="import" href="bower_components/paper-item/paper-item.html">
-<link rel="import" href="bower_components/paper-styles/paper-styles.html">
-<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="paper-typeahead-results.html">
 
 <dom-module id="paper-typeahead">
   <template>
@@ -12,26 +10,11 @@
         font-family: "Roboto";
         display: block;
       }
-      paper-item:hover {
-        background: var(--google-grey-100);
-      }
-      paper-item {
-        cursor: pointer;
-        position: relative;
-        border-bottom: solid 1px var(--google-grey-500);
-      }
     </style>
     <paper-input on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
     <div class="results">
       <template is="dom-if" if="[[!hideResults]]">
-        <template is="dom-repeat" items="[[filteredItems]]">
-          <paper-item on-tap="selected">
-            <paper-item-body>
-              <span>[[item]]</span>
-              <paper-ripple></paper-ripple>
-            </paper-item-body>
-          </paper-item>
-        </template>
+        <paper-typeahead-results results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>
       </template>
     </div>
   </template>

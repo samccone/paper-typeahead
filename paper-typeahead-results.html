@@ -1,0 +1,42 @@
+<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+
+<dom-module id="paper-typeahead-results">
+  <template>
+    <style>
+      paper-item:hover {
+        background: var(--google-grey-100);
+      }
+      paper-item {
+        cursor: pointer;
+        position: relative;
+        border-bottom: solid 1px var(--google-grey-500);
+      }
+    </style>
+    <template is="dom-repeat" items="[[results]]">
+      <paper-item on-tap="selected">
+        <paper-item-body>
+          <span>[[item]]</span>
+          <paper-ripple></paper-ripple>
+        </paper-item-body>
+      </paper-item>
+    </template>
+  </template>
+</dom-module>
+<script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'paper-typeahead-results',
+      properties: {
+        results: Array
+      },
+      selected: function(e) {
+        this.fire('selected', {target: e.model.item});
+      }
+    });
+  })();
+</script>
+

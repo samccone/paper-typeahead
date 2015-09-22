@@ -44,8 +44,8 @@
       this.hideResults = false;
     },
     selected: function(e) {
-      this.input = e.model.item;
-      this.fire('itemSelected', {details: e.model.item});
+      this.input = e.detail.target;
+      this.fire('itemSelected', {selected: e.detail.target});
       this.fire('blur');
     },
     getFiltered: function(data, input, filterFn) {
