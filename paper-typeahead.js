@@ -24,7 +24,7 @@
             }
 
             return data.filter(function(v) {
-              return v.match(r);
+              return (r.test(v) ? v : null);
             });
           };
         }
