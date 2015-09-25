@@ -11,7 +11,7 @@
         display: block;
       }
     </style>
-    <paper-input on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
+    <paper-input on-keyup="checkKey" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
     <div class="results">
       <template is="dom-if" if="[[!hideResults]]">
         <paper-typeahead-results results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>

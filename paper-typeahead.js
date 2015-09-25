@@ -48,6 +48,13 @@
       this.fire('itemSelected', {selected: e.detail.target});
       this.fire('blur');
     },
+    checkKey: function(e) {
+      if (e.which === 27) {
+        this.hideResults = true;
+      } else {
+        this.hideResults = false;
+      }
+    },
     getFiltered: function(data, input, filterFn) {
       return filterFn.call(this, data, input);
     }
