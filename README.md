@@ -17,7 +17,7 @@ function(data, input) { return data; }
 
 #### Todo
 
-* [ ] Add tab / enter result selection
+* [x] Add tab / enter result selection
 * [ ] Add conditional empty list template
 * [ ] Use iron-list to display results
 * [ ] Add better style interface

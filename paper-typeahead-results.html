@@ -1,6 +1,7 @@
 <link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/iron-menu-behavior/iron-menu-behavior.html">
 
 <dom-module id="paper-typeahead-results">
   <template>
@@ -15,7 +16,7 @@
       }
     </style>
     <template is="dom-repeat" items="[[results]]">
-      <paper-item on-tap="selected">
+      <paper-item class='result-item' on-tap="onSelected" on-keypress="onKeyPress">
         <paper-item-body>
           <span>[[item]]</span>
           <paper-ripple></paper-ripple>
@@ -31,10 +32,36 @@
     Polymer({
       is: 'paper-typeahead-results',
       properties: {
-        results: Array
+        results: Array,
+        selectable: {
+          type: String,
+          value: '.result-item'
+        }
       },
-      selected: function(e) {
+      observers: [
+        'updateSelectable(results, selectable)'
+      ],
+      behaviors: [
+        Polymer.IronMenuBehavior
+      ],
+      updateSelectable: function() {
+        this.async(function() {
+          this._resetTabindices();
+        });
+      },
+      onKeyPress: function(e) {
+        if (e.which === 13) {
+          this.onSelected(e);
+        }
+      },
+      onSelected: function(e) {
         this.fire('selected', {target: e.model.item});
+      },
+      // https://github.com/PolymerElements/iron-selector/blob/master/iron-selectable.html#L153
+      // is not working as expected
+      get items() {
+        return Array.from(
+            this.querySelectorAll(this.selectable));
       }
     });
   })();

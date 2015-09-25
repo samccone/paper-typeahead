@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "font-roboto": "PolymerElements/font-roboto#~1.0.1",
+    "iron-menu-behavior": "polymerelements/iron-menu-behavior#~1.0.4",
     "paper-input": "PolymerElements/paper-input#~1.0.14",
     "paper-item": "PolymerElements/paper-item#~1.0.2",
     "paper-ripple": "PolymerElements/paper-ripple#~1.0.2",

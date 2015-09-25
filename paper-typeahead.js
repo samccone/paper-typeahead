@@ -49,6 +49,12 @@
       this.fire('blur');
     },
     checkKey: function(e) {
+      if (e.which === 40 && this.input.length) {
+        // has to be a nicer way to do this
+        document.querySelector('[tabindex="0"]').focus();
+        return;
+      }
+
       if (e.which === 27) {
         this.hideResults = true;
       } else {
