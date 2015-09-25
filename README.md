@@ -1,6 +1,6 @@
 ### Paper typeahead
 
-![screen shot 2015-09-20 at 9 31 46 pm](https://cloud.githubusercontent.com/assets/883126/9985336/0e049bae-5fdf-11e5-9ccf-e3122a8b1cc8.png)
+![out](https://cloud.githubusercontent.com/assets/883126/10092995/9a69aa06-6301-11e5-85d3-02ac8e537eeb.gif)
 
 #### API
 
