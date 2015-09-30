@@ -29,9 +29,10 @@
           };
         }
       },
+      maxResults: 50,
       filteredItems: {
         type: Array,
-        computed: 'getFiltered(data, input, filterFn)'
+        computed: 'getFiltered(data, input, filterFn, maxResults)'
       }
     },
     listeners: {
@@ -61,8 +62,8 @@
         this.hideResults = false;
       }
     },
-    getFiltered: function(data, input, filterFn) {
-      return filterFn.call(this, data, input);
+    getFiltered: function(data, input, filterFn, maxResults) {
+      return filterFn.call(this, data, input).slice(0, maxResults);
     }
   });
 })();
