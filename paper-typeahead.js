@@ -32,7 +32,7 @@
       maxResults: 50,
       filteredItems: {
         type: Array,
-        computed: 'getFiltered(data, input, filterFn, maxResults)'
+        computed: 'getFiltered(data.*, input, filterFn, maxResults)'
       }
     },
     listeners: {
@@ -63,7 +63,8 @@
       }
     },
     getFiltered: function(data, input, filterFn, maxResults) {
-      return filterFn.call(this, data, input).slice(0, maxResults);
+      return filterFn.call(this, data.base, input)
+        .slice(0, maxResults);
     }
   });
 })();
