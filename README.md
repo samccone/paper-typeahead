@@ -25,3 +25,4 @@ function(data, input) { return data; }
 * [x] extract js to external file
 * [ ] add tests
 * [ ] Any other ideas welcome 🎷
+* [ ] automatically focus the first element (enter should just select it)
