@@ -1,0 +1,9 @@
+{
+  "name": "paper-typeahead",
+  "scripts": {
+    "test": "jscs *.js"
+  },
+  "devDependencies": {
+    "jscs": "^2.2.1"
+  }
+}
