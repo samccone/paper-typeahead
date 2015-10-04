@@ -29,7 +29,10 @@
           };
         }
       },
-      maxResults: 50,
+      maxResults: {
+        type: Number,
+        value: 50
+      },
       filteredItems: {
         type: Array,
         computed: 'getFiltered(data.*, input, filterFn, maxResults)'
