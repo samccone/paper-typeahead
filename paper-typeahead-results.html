@@ -10,11 +10,14 @@
       }
       paper-item:hover {
         background: var(--google-grey-100);
+        @apply(--paper-typeahead-results-item-hover);
       }
       paper-item {
         cursor: pointer;
         position: relative;
-        border-bottom: solid 1px var(--google-grey-500);
+        border-bottom: solid 1px var(--google-grey-300);
+        @apply(--paper-typeahead-results-item);
+        --paper-item-min-height: var(--paper-typeahead-results-item-min-height, 30px);
       }
     </style>
     <template is="dom-repeat" items="[[results]]">
