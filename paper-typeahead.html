@@ -1,5 +1,6 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-material/paper-material.html">
 <link rel="import" href="bower_components/font-roboto/roboto.html">
 <link rel="import" href="paper-typeahead-results.html">
 
@@ -15,11 +16,11 @@
       }
     </style>
     <paper-input on-keyup="checkKey" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
-    <div class="results">
+    <paper-material elevation="[[resultsElevation]]" class="results">
       <template is="dom-if" if="[[!hideResults]]">
         <paper-typeahead-results results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>
       </template>
-    </div>
+    </paper-material>
   </template>
 </dom-module>
 <script src="paper-typeahead.js"></script>
