@@ -2,6 +2,9 @@
   'use strict';
   Polymer({
     is: 'paper-typeahead',
+    behaviors: [
+      Polymer.IronA11yKeysBehavior
+    ],
     properties: {
       input: String,
       hideResults: {
@@ -40,12 +43,32 @@
       filteredItems: {
         type: Array,
         computed: 'getFiltered(data.*, input, filterFn, maxResults)'
-      }
+      },
+      keyEventTarget: {
+        type: Object,
+        value: function() {
+          return this;
+        }
+      },
+    },
+    keyBindings: {
+      'up': '_upPressed',
+      'down': '_downPressed',
+      'esc': '_escPressed',
+      'enter': '_enterPressed'
+    },
+    _upPressed: function() {
+    },
+    _downPressed: function() {
+    },
+    _escPressed: function() {
+    },
+    _enterPressed: function() {
     },
     getFiltered: function(data, input, filterFn, maxResults) {
       return filterFn.call(this, data.base, input)
         .slice(0, maxResults);
-    }
+    },
   });
 })();
 
