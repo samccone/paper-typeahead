@@ -6,16 +6,16 @@
       Polymer.IronA11yKeysBehavior
     ],
     properties: {
-      input: {
+      value: {
         type: String,
-        observer: '_inputChanged'
+        observer: '_valueChanged'
       },
       // private because we don't want the user to set it true if there is no results
       _hideResults: {
         type: Boolean,
         value: false
       },
-      inputLabel: {
+      label: {
         type: String,
         value: ''
       },
@@ -23,10 +23,10 @@
       filterFn: {
         type: Function,
         value: function() {
-          return function(data, input) {
-            var r = RegExp(input, 'i');
+          return function(data, value) {
+            var r = RegExp(value, 'i');
 
-            if (input === '') {
+            if (value === '') {
               return [];
             }
 
@@ -46,7 +46,7 @@
       },
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, input, filterFn, maxResults)'
+        computed: '_getFiltered(data.*, value, filterFn, maxResults)'
       },
       keyEventTarget: {
         type: Object,
@@ -60,6 +60,12 @@
       'down': '_downPressed',
       'esc': '_escPressed',
       'enter': '_enterPressed'
+    },
+    listeners: {
+      'iron-activate': '_itemPressed'
+    },
+    _itemPressed: function(e) {
+      this.selectPrediction(e.detail.selected);
     },
     _upPressed: function() {
       this.$.predictions.selectPrevious();
@@ -80,16 +86,19 @@
     _enterPressed: function() {
       this.selectPrediction(this.$.predictions.selected);
     },
-    _getFiltered: function(data, input, filterFn, maxResults) {
-      return filterFn.call(this, data.base, input)
+    _getFiltered: function(data, value, filterFn, maxResults) {
+      return filterFn.call(this, data.base, value)
         .slice(0, maxResults);
     },
-    _inputChanged: function() {
+    _valueChanged: function() {
       this.$.predictions.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
     },
-    selectPrediction: function(selected) {
-      this.input = this.filteredItems[selected];
+    /**
+     * Select a prediction by index then hide and reset the predictions.
+     */
+    selectPrediction: function(selectedIndex) {
+      this.value = this.filteredItems[selectedIndex];
       this.$.predictions.selected = 0;
       this._hideResults = true;
     },
