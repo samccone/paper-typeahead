@@ -18,22 +18,21 @@
         display: block;
       }
       .iron-selected {
-        background-color: var(--paper-indigo-50);
+        background-color: var(--prediction-selected-background-color, --paper-indigo-50);
       }
       paper-item[pressed] {
         outline: none;
-        background-color: var(--paper-indigo-50);
+        background-color: var(--prediction-selected-background-color, --paper-indigo-50);
       }
       paper-item:not([pressed]):hover {
-        background: var(--google-grey-100);
-        @apply(--paper-typeahead-results-item-hover);
+        background: var(--prediction-hover-background-color, --google-grey-100);
       }
       paper-item {
         cursor: pointer;
         position: relative;
         border-bottom: solid 1px var(--google-grey-300);
-        @apply(--paper-typeahead-results-item);
-        --paper-item-min-height: var(--paper-typeahead-results-item-min-height, 30px);
+        @apply(--prediction);
+        --paper-item-min-height: var(--prediction-min-height, 30px);
       }
     </style>
     <paper-input label="[[label]]" value="{{value}}"></paper-input>
