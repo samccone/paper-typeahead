@@ -33,6 +33,10 @@
         type: Number,
         value: 50
       },
+      resultsElevation: {
+        type: Number,
+        value: 1
+      },
       filteredItems: {
         type: Array,
         computed: 'getFiltered(data.*, input, filterFn, maxResults)'
