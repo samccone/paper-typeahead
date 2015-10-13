@@ -17,9 +17,7 @@
     </style>
     <paper-input on-keyup="checkKey" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
     <paper-material elevation="[[resultsElevation]]" class="results">
-      <template is="dom-if" if="[[!hideResults]]">
-        <paper-typeahead-results results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>
-      </template>
+        <paper-typeahead-results hidden$="[[_hideResults]]" results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>
     </paper-material>
   </template>
 </dom-module>
