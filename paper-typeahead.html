@@ -1,8 +1,10 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/paper-material/paper-material.html">
 <link rel="import" href="bower_components/font-roboto/roboto.html">
-<link rel="import" href="paper-typeahead-results.html">
+<link rel="import" href="bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="bower_components/iron-selector/iron-selector.html">
 
 <dom-module id="paper-typeahead">
   <template>
@@ -11,13 +13,38 @@
         font-family: "Roboto";
         display: block;
       }
-      paper-typeahead-results {
+      #predictions {
         margin-top: -6px;
+        display: block;
+      }
+      .iron-selected {
+        background-color: var(--paper-indigo-50);
+      }
+      paper-item[pressed] {
+        outline: none;
+        background-color: var(--paper-indigo-50);
+      }
+      paper-item:not([pressed]):hover {
+        background: var(--google-grey-100);
+        @apply(--paper-typeahead-results-item-hover);
+      }
+      paper-item {
+        cursor: pointer;
+        position: relative;
+        border-bottom: solid 1px var(--google-grey-300);
+        @apply(--paper-typeahead-results-item);
+        --paper-item-min-height: var(--paper-typeahead-results-item-min-height, 30px);
       }
     </style>
     <paper-input on-keyup="checkKey" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
     <paper-material elevation="[[resultsElevation]]" class="results">
-        <paper-typeahead-results hidden$="[[_hideResults]]" results="[[filteredItems]]" on-selected="selected"></paper-typeahead-results>
+      <iron-selector id="predictions" hidden$="[[_hideResults]]" selected="0">
+        <template is="dom-repeat" items="[[filteredItems]]">
+          <paper-item disable>
+              <span>[[item]]</span>
+          </paper-item>
+        </template>
+      </iron-selector>
     </paper-material>
   </template>
 </dom-module>
