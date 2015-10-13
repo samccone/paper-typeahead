@@ -36,8 +36,8 @@
       }
     </style>
     <paper-input label="[[label]]" value="{{value}}" on-blur="_blur"></paper-input>
-    <paper-material elevation="[[elevation]]" class="results">
-      <iron-selector id="predictions" hidden$="[[_hideResults]]" selected="0">
+    <paper-material elevation="[[elevation]]" class="results" hidden$="[[_hideResults]]">
+      <iron-selector id="predictions" selected="0">
         <template is="dom-repeat" items="[[filteredItems]]">
           <paper-item>
               <span>[[item]]</span>
