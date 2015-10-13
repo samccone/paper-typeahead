@@ -36,7 +36,7 @@
         --paper-item-min-height: var(--paper-typeahead-results-item-min-height, 30px);
       }
     </style>
-    <paper-input on-keyup="checkKey" on-focus="onFocus" label="[[inputLabel]]" value="{{input}}"></paper-input>
+    <paper-input label="[[inputLabel]]" value="{{input}}"></paper-input>
     <paper-material elevation="[[resultsElevation]]" class="results">
       <iron-selector id="predictions" hidden$="[[_hideResults]]" selected="0">
         <template is="dom-repeat" items="[[filteredItems]]">

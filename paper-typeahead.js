@@ -6,8 +6,12 @@
       Polymer.IronA11yKeysBehavior
     ],
     properties: {
-      input: String,
-      hideResults: {
+      input: {
+        type: String,
+        observer: '_inputChanged'
+      },
+      // private because we don't want the user to set it true if there is no results
+      _hideResults: {
         type: Boolean,
         value: false
       },
@@ -42,7 +46,7 @@
       },
       filteredItems: {
         type: Array,
-        computed: 'getFiltered(data.*, input, filterFn, maxResults)'
+        computed: '_getFiltered(data.*, input, filterFn, maxResults)'
       },
       keyEventTarget: {
         type: Object,
@@ -58,17 +62,54 @@
       'enter': '_enterPressed'
     },
     _upPressed: function() {
+      this.$.predictions.selectPrevious();
     },
     _downPressed: function() {
+      if (!this._hideResults) {
+        this.$.predictions.selectNext();
+      // if there are results and they are hide
+      } else if (this.filteredItems.length) {
+        // just show them
+        this._hideResults = false;
+      }
     },
     _escPressed: function() {
+      this.$.predictions.selected = 0;
+      this._hideResults = true;
     },
     _enterPressed: function() {
+      this.selectPrediction(this.$.predictions.selected);
     },
-    getFiltered: function(data, input, filterFn, maxResults) {
+    _getFiltered: function(data, input, filterFn, maxResults) {
       return filterFn.call(this, data.base, input)
         .slice(0, maxResults);
     },
+    _inputChanged: function() {
+      this.$.predictions.selected = 0;
+      this._hideResults = this.filteredItems.length ? false : true;
+    },
+    selectPrediction: function(selected) {
+      this.input = this.filteredItems[selected];
+      this.$.predictions.selected = 0;
+      this._hideResults = true;
+    },
+    /**
+     * Manually display the predictions if the results list is not empty.
+     *
+     * @return {boolean} True if the predictions are displayed.
+     */
+    tryDisplayPredictions: function() {
+      if (this._hideResults && this.filteredItems.length) {
+        this._hideResults = false;
+      }
+      return !_hideResults;
+    },
+    /**
+     * Manually hide the predictions.
+     */
+    hidePredictions: function() {
+      this._hideResults = true;
+    }
   });
 })();
 
