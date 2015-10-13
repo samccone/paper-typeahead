@@ -40,7 +40,7 @@
         type: Number,
         value: 50
       },
-      resultsElevation: {
+      elevation: {
         type: Number,
         value: 1
       },
