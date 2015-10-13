@@ -94,6 +94,9 @@
       this.$.predictions.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
     },
+    _blur: function() {
+      this.closePredictions();
+    },
     /**
      * Select a prediction by index then hide and reset the predictions.
      */
@@ -118,7 +121,14 @@
      */
     hidePredictions: function() {
       this._hideResults = true;
-    }
+    },
+    /**
+     * Manually hide the predictions and reset selected.
+     */
+    closePredictions: function() {
+      this._hideResults = true;
+      this.selected = 0;
+    },
   });
 })();
 
