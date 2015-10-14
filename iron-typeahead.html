@@ -1,0 +1,75 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<script>
+  /** @polymerBehavior */
+  Polymer.IronTypeaheadBehavior = {
+
+    properties: {
+    
+      /**
+       * 
+       */
+      typeaheadDisabled: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * 
+       */
+      data: Array,
+
+      /**
+       * 
+       */
+      query: String,
+
+      /**
+       * 
+       */
+      maxResults: {
+        type: Number,
+        value: 10
+      },
+
+      /**
+       * 
+       */
+      filteredItems: {
+        type: Array,
+        computed: '_getFiltered(data.*, value, filterFn, maxResults, typeaheadDisabled)',
+        notify: true
+      },
+
+      /**
+       * 
+       */
+      filterFn: {
+        type: Function,
+        value: function() {
+          return function(data, value) {
+            var r = RegExp(value, 'i');
+
+            if (value === '') {
+              return [];
+            }
+
+            return data.filter(function(v) {
+              return (r.test(v) ? v : null);
+            });
+          };
+        }
+      }
+    },
+
+    /**
+     * 
+     */
+    _getFiltered: function(data, value, filterFn, maxResults, typeaheadDisabled) {
+      if (typeaheadDisabled) { return []; }
+      return filterFn.call(this, data.base, value)
+        .slice(0, maxResults);
+    }
+  }
+
+</script>

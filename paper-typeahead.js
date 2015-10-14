@@ -5,16 +5,12 @@
     is: 'paper-typeahead',
 
     behaviors: [
-      Polymer.IronA11yKeysBehavior
+      Polymer.IronA11yKeysBehavior,
+      Polymer.IronTypeaheadBehavior,
     ],
 
     properties: {
       disabled: false,
-
-      typeaheadDisabled: {
-        type: Boolean,
-        value: false,
-      },
 
       value: {
         type: String,
@@ -26,38 +22,9 @@
         value: ''
       },
 
-      data: Array,
-
-      filterFn: {
-        type: Function,
-        value: function() {
-          return function(data, value) {
-            var r = RegExp(value, 'i');
-
-            if (value === '') {
-              return [];
-            }
-
-            return data.filter(function(v) {
-              return (r.test(v) ? v : null);
-            });
-          };
-        }
-      },
-
-      maxResults: {
-        type: Number,
-        value: 10
-      },
-
       elevation: {
         type: Number,
         value: 1
-      },
-
-      filteredItems: {
-        type: Array,
-        computed: '_getFiltered(data.*, value, filterFn, maxResults, typeaheadDisabled)'
       },
 
       keyEventTarget: {
@@ -112,12 +79,6 @@
 
     _enterPressed: function() {
       this.selectPrediction(this.$.predictions.selected);
-    },
-
-    _getFiltered: function(data, value, filterFn, maxResults, typeaheadDisabled) {
-      if (typeaheadDisabled) { return []; }
-      return filterFn.call(this, data.base, value)
-        .slice(0, maxResults);
     },
 
     _valueChanged: function() {
