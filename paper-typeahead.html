@@ -13,20 +13,25 @@
         font-family: "Roboto";
         display: block;
       }
+
       #predictions {
         margin-top: -6px;
         display: block;
       }
+
       .iron-selected {
         background-color: var(--prediction-selected-background-color, --paper-indigo-50);
       }
+
       paper-item[pressed] {
         outline: none;
         background-color: var(--prediction-selected-background-color, --paper-indigo-50);
       }
+
       paper-item:not([pressed]):hover {
         background: var(--prediction-hover-background-color, --google-grey-100);
       }
+
       paper-item {
         cursor: pointer;
         position: relative;
@@ -35,16 +40,24 @@
         --paper-item-min-height: var(--prediction-min-height, 30px);
       }
     </style>
+
     <paper-input disabled="[[disabled]]" label="[[label]]" value="{{value}}" on-blur="_blur"></paper-input>
+
     <paper-material elevation="[[elevation]]" class="results" hidden$="[[_hideResults]]">
+      
       <iron-selector id="predictions" selected="0">
+        
         <template is="dom-repeat" items="[[filteredItems]]">
           <paper-item>
               <span>[[item]]</span>
           </paper-item>
         </template>
+
       </iron-selector>
+
     </paper-material>
+
   </template>
 </dom-module>
+
 <script src="paper-typeahead.js"></script>
