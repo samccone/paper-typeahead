@@ -16,10 +16,6 @@
         display: block;
       }
 
-      [hidden] { 
-        display: none;
-      }
-
       paper-material {
         margin-top: -6px;
       }
@@ -53,19 +49,15 @@
     required="[[required]]"
     value="{{value}}" 
     on-blur="_blur"></paper-input>
-
-    <paper-material elevation="[[elevation]]" hidden$="[[_hideResults]]">
-
-      <template is="dom-repeat" items="[[filteredItems]]">
-
-        <paper-item on-mouseover="_mouseoverItem" class="selectable">
-            <span>[[item]]</span>
-        </paper-item>
-
-      </template>
-
-    </paper-material>
-
+    <template is="dom-if" if="[[!_hideResults]]">
+      <paper-material elevation="[[elevation]]">
+        <template is="dom-repeat" items="[[filteredItems]]">
+          <paper-item on-mouseover="_mouseoverItem" class="selectable">
+              <span>[[item]]</span>
+          </paper-item>
+        </template>
+      </paper-material>
+    </template>
   </template>
 </dom-module>
 
