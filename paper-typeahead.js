@@ -6,14 +6,14 @@
       Polymer.IronA11yKeysBehavior
     ],
     properties: {
+      disabled: false,
+      typeaheadDisabled: {
+        type: Boolean,
+        value: false,
+      },
       value: {
         type: String,
         observer: '_valueChanged'
-      },
-      // private because we don't want the user to set it true if there is no results
-      _hideResults: {
-        type: Boolean,
-        value: false
       },
       label: {
         type: String,
@@ -46,13 +46,18 @@
       },
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, value, filterFn, maxResults)'
+        computed: '_getFiltered(data.*, value, filterFn, maxResults, typeaheadDisabled)'
       },
       keyEventTarget: {
         type: Object,
         value: function() {
           return this;
         }
+      },
+      // private because we don't want the user to set it true if there is no results
+      _hideResults: {
+        type: Boolean,
+        value: false
       },
     },
     keyBindings: {
@@ -86,7 +91,8 @@
     _enterPressed: function() {
       this.selectPrediction(this.$.predictions.selected);
     },
-    _getFiltered: function(data, value, filterFn, maxResults) {
+    _getFiltered: function(data, value, filterFn, maxResults, typeaheadDisabled) {
+      if (typeaheadDisabled) { return []; }
       return filterFn.call(this, data.base, value)
         .slice(0, maxResults);
     },
@@ -95,7 +101,8 @@
       this._hideResults = this.filteredItems.length ? false : true;
     },
     _blur: function() {
-      this.closePredictions();
+      // paper-item gain focus on-tap so _blur is called too early
+      // this.closePredictions();
     },
     /**
      * Select a prediction by index then hide and reset the predictions.

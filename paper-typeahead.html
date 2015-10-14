@@ -35,7 +35,7 @@
         --paper-item-min-height: var(--prediction-min-height, 30px);
       }
     </style>
-    <paper-input label="[[label]]" value="{{value}}" on-blur="_blur"></paper-input>
+    <paper-input disabled="[[disabled]]" label="[[label]]" value="{{value}}" on-blur="_blur"></paper-input>
     <paper-material elevation="[[elevation]]" class="results" hidden$="[[_hideResults]]">
       <iron-selector id="predictions" selected="0">
         <template is="dom-repeat" items="[[filteredItems]]">
