@@ -29,10 +29,6 @@
         background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
 
-      paper-item:not([pressed]):hover {
-        background-color: var(--paper-typeahead-hover-result-background-color, --google-grey-100);
-      }
-
       paper-item {
         cursor: pointer;
         position: relative;
@@ -59,7 +55,7 @@
       <iron-selector id="results" selected="0">
         
         <template is="dom-repeat" items="[[filteredItems]]">
-          <paper-item>
+          <paper-item on-mouseover="_mouseoverItem">
               <span>[[item]]</span>
           </paper-item>
         </template>

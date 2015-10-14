@@ -91,6 +91,10 @@
       // this.closeResults();
     },
 
+    _mouseoverItem: function(e) {
+      this.$.results.select(this.$.results.indexOf(e.target));
+    },
+
     /**
      * Select a Result in the filteredItems array by index then close the results.
      *
