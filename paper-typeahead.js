@@ -38,7 +38,7 @@
       },
       maxResults: {
         type: Number,
-        value: 50
+        value: 10
       },
       elevation: {
         type: Number,
