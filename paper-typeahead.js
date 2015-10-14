@@ -6,7 +6,7 @@
 
     behaviors: [
       Polymer.IronA11yKeysBehavior,
-      Polymer.IronTypeaheadBehavior,
+      Polymer.IronTypeaheadBehavior
     ],
 
     properties: {
@@ -53,18 +53,18 @@
     },
 
     _itemPressed: function(e) {
-      this.selectPrediction(e.detail.selected);
+      this.selectResult(e.detail.selected);
     },
 
     _upPressed: function() {
       if (!this._hideResults) {
-        this.$.predictions.selectPrevious();
+        this.$.results.selectPrevious();
       }
     },
 
     _downPressed: function() {
       if (!this._hideResults) {
-        this.$.predictions.selectNext();
+        this.$.results.selectNext();
       // if there are results and they are hide
       } else if (this.filteredItems.length) {
         // just show them
@@ -73,40 +73,40 @@
     },
 
     _escPressed: function() {
-      this.$.predictions.selected = 0;
+      this.$.results.selected = 0;
       this._hideResults = true;
     },
 
     _enterPressed: function() {
-      this.selectPrediction(this.$.predictions.selected);
+      this.selectResult(this.$.results.selected);
     },
 
     _valueChanged: function() {
-      this.$.predictions.selected = 0;
+      this.$.results.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
     },
 
     _blur: function() {
       // paper-item gain focus on-tap so _blur is called too early
-      // this.closePredictions();
+      // this.closeResults();
     },
 
     /**
-     * Select a prediction by index then close the predictions.
+     * Select a Result in the filteredItems array by index then close the results.
      *
      * @param {Number} itemIndex The index of the item to select
      */
-    selectPrediction: function(itemIndex) {
+    selectResult: function(itemIndex) {
       this.value = this.filteredItems[itemIndex];
-      this.closePredictions();
+      this.closeResults();
     },
 
     /**
-     * Manually display the predictions if the results list is not empty.
+     * Manually display the results if the filteredItems array is not empty.
      *
-     * @return {Boolean} True if the predictions are displayed.
+     * @return {Boolean} True if the results are displayed.
      */
-    tryDisplayPredictions: function() {
+    tryDisplayResults: function() {
       if (this._hideResults && this.filteredItems.length) {
         this._hideResults = false;
       }
@@ -114,16 +114,16 @@
     },
 
     /**
-     * Manually hide the predictions.
+     * Manually hide the results.
      */
-    hidePredictions: function() {
+    hideResults: function() {
       this._hideResults = true;
     },
 
     /**
-     * Manually hide the predictions and reset selected.
+     * Manually hide the results and reset selected item.
      */
-    closePredictions: function() {
+    closeResults: function() {
       this._hideResults = true;
       this.selected = 0;
     }

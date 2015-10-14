@@ -15,30 +15,30 @@
         display: block;
       }
 
-      #predictions {
+      #results {
         margin-top: -6px;
         display: block;
       }
 
       .iron-selected {
-        background-color: var(--prediction-selected-background-color, --paper-indigo-50);
+        background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
 
       paper-item[pressed] {
         outline: none;
-        background-color: var(--prediction-selected-background-color, --paper-indigo-50);
+        background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
 
       paper-item:not([pressed]):hover {
-        background: var(--prediction-hover-background-color, --google-grey-100);
+        background-color: var(--paper-typeahead-hover-result-background-color, --google-grey-100);
       }
 
       paper-item {
         cursor: pointer;
         position: relative;
         border-bottom: solid 1px var(--google-grey-300);
-        @apply(--prediction);
-        --paper-item-min-height: var(--prediction-min-height, 30px);
+        @apply(--paper-typeahead-result);
+        --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
       }
     </style>
 
@@ -54,9 +54,9 @@
     value="{{value}}" 
     on-blur="_blur"></paper-input>
 
-    <paper-material elevation="[[elevation]]" class="results" hidden$="[[_hideResults]]">
+    <paper-material elevation="[[elevation]]" hidden$="[[_hideResults]]">
       
-      <iron-selector id="predictions" selected="0">
+      <iron-selector id="results" selected="0">
         
         <template is="dom-repeat" items="[[filteredItems]]">
           <paper-item>
