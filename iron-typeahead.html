@@ -6,44 +6,26 @@
 
     properties: {
     
-      /**
-       * 
-       */
       typeaheadDisabled: {
         type: Boolean,
         value: false
       },
 
-      /**
-       * 
-       */
       data: Array,
 
-      /**
-       * 
-       */
       query: String,
 
-      /**
-       * 
-       */
       maxResults: {
         type: Number,
         value: 10
       },
 
-      /**
-       * 
-       */
       filteredItems: {
         type: Array,
         computed: '_getFiltered(data.*, value, filterFn, maxResults, typeaheadDisabled)',
         notify: true
       },
 
-      /**
-       * 
-       */
       filterFn: {
         type: Function,
         value: function() {
@@ -62,9 +44,6 @@
       }
     },
 
-    /**
-     * 
-     */
     _getFiltered: function(data, value, filterFn, maxResults, typeaheadDisabled) {
       if (typeaheadDisabled) { return []; }
       return filterFn.call(this, data.base, value)

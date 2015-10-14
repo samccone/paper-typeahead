@@ -12,7 +12,10 @@
 
     properties: {
 
-      disabled: false,
+      disabled: {
+        type: Boolean,
+        value: false
+      },
 
       value: {
         type: String,
