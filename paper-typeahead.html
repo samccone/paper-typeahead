@@ -42,7 +42,17 @@
       }
     </style>
 
-    <paper-input disabled="[[disabled]]" label="[[label]]" value="{{value}}" on-blur="_blur"></paper-input>
+    <paper-input 
+    autofocus="[[autofocus]]" 
+    maxlength="[[maxlength]]" 
+    no-label-float="[[noLabelFloat]]" 
+    disabled="[[disabled]]" 
+    label="[[label]]"
+    placeholder="[[placeholder]]"
+    readonly="[[readonly]]"
+    required="[[required]]"
+    value="{{value}}" 
+    on-blur="_blur"></paper-input>
 
     <paper-material elevation="[[elevation]]" class="results" hidden$="[[_hideResults]]">
       
