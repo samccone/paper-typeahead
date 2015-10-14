@@ -4,7 +4,7 @@
 <link rel="import" href="bower_components/paper-material/paper-material.html">
 <link rel="import" href="bower_components/font-roboto/roboto.html">
 <link rel="import" href="bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
-<link rel="import" href="bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="bower_components/iron-selector/iron-selectable.html">
 <link rel="import" href="iron-typeahead.html">
 
 <dom-module id="paper-typeahead">
@@ -15,9 +15,8 @@
         display: block;
       }
 
-      #results {
+      paper-material {
         margin-top: -6px;
-        display: block;
       }
 
       .iron-selected {
@@ -38,7 +37,7 @@
       }
     </style>
 
-    <paper-input 
+    <paper-input
     autofocus="[[autofocus]]" 
     maxlength="[[maxlength]]" 
     no-label-float="[[noLabelFloat]]" 
@@ -52,15 +51,13 @@
 
     <paper-material elevation="[[elevation]]" hidden$="[[_hideResults]]">
       
-      <iron-selector id="results" selected="0">
-        
-        <template is="dom-repeat" items="[[filteredItems]]">
-          <paper-item on-mouseover="_mouseoverItem">
-              <span>[[item]]</span>
-          </paper-item>
-        </template>
+      <template is="dom-repeat" items="[[filteredItems]]">
 
-      </iron-selector>
+        <paper-item on-mouseover="_mouseoverItem" class="selectable">
+            <span>[[item]]</span>
+        </paper-item>
+
+      </template>
 
     </paper-material>
 

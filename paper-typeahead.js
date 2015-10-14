@@ -6,10 +6,12 @@
 
     behaviors: [
       Polymer.IronA11yKeysBehavior,
+      Polymer.IronSelectableBehavior,
       Polymer.IronTypeaheadBehavior
     ],
 
     properties: {
+
       disabled: false,
 
       value: {
@@ -58,13 +60,13 @@
 
     _upPressed: function() {
       if (!this._hideResults) {
-        this.$.results.selectPrevious();
+        this.selectPrevious();
       }
     },
 
     _downPressed: function() {
       if (!this._hideResults) {
-        this.$.results.selectNext();
+        this.selectNext();
       // if there are results and they are hide
       } else if (this.filteredItems.length) {
         // just show them
@@ -73,16 +75,16 @@
     },
 
     _escPressed: function() {
-      this.$.results.selected = 0;
+      this.selected = 0;
       this._hideResults = true;
     },
 
     _enterPressed: function() {
-      this.selectResult(this.$.results.selected);
+      this.selectResult(this.selected);
     },
 
     _valueChanged: function() {
-      this.$.results.selected = 0;
+      this.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
     },
 
@@ -92,7 +94,11 @@
     },
 
     _mouseoverItem: function(e) {
-      this.$.results.select(this.$.results.indexOf(e.target));
+      this.select(this.indexOf(e.target));
+    },
+
+    get items() {
+      return Array.from(this.querySelectorAll('.selectable'));
     },
 
     /**
