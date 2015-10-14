@@ -73,7 +73,9 @@
       this.selectPrediction(e.detail.selected);
     },
     _upPressed: function() {
-      this.$.predictions.selectPrevious();
+      if (!this._hideResults) {
+        this.$.predictions.selectPrevious();
+      }
     },
     _downPressed: function() {
       if (!this._hideResults) {
