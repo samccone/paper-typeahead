@@ -5,7 +5,6 @@
     behaviors: [
       Polymer.IronA11yKeysBehavior,
       Polymer.IronSelectableBehavior,
-      Polymer.IronTypeaheadBehavior
     ],
     properties: {
       disabled: {
@@ -28,6 +27,38 @@
         type: Object,
         value: function() {
           return this;
+        }
+      },
+      typeaheadDisabled: {
+        type: Boolean,
+        value: false
+      },
+      data: Array,
+      query: String,
+      maxResults: {
+        type: Number,
+        value: 10
+      },
+      filteredItems: {
+        type: Array,
+        computed: '_getFiltered(data.*, value, filterFn, maxResults,' +
+        'typeaheadDisabled)',
+        notify: true
+      },
+      filterFn: {
+        type: Function,
+        value: function() {
+          return function(data, value) {
+            var r = RegExp(value, 'i');
+
+            if (value === '') {
+              return [];
+            }
+
+            return data.filter(function(v) {
+              return (r.test(v) ? v : null);
+            });
+          };
         }
       },
       // private because we don't want the user to set it true if there is no results
@@ -79,6 +110,12 @@
     },
     _mouseoverItem: function(e) {
       this.select(this.indexOf(e.target));
+    },
+    _getFiltered: function(
+      data, value, filterFn, maxResults, typeaheadDisabled) {
+      if (typeaheadDisabled) { return []; }
+      return filterFn.call(this, data.base, value)
+        .slice(0, maxResults);
     },
     get items() {
       return Array.from(this.querySelectorAll('.selectable'));
