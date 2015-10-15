@@ -77,7 +77,11 @@
       'iron-activate': '_itemPressed'
     },
     _itemPressed: function(e) {
-      this.selectResult(e.detail.selected);
+      // if pressed item is no paper-input
+      if (e.detail.selected) {
+        // -1 since paper-input is part of selectable array, index is shifted
+        this.selectResult(e.detail.selected - 1);
+      }
     },
     _upPressed: function() {
       if (!this._hideResults) {
@@ -98,7 +102,8 @@
       this._hideResults = true;
     },
     _enterPressed: function() {
-      this.selectResult(this.selected);
+      // -1 since paper-input is part of selectable array, index is shifted
+      this.selectResult(this.selected - 1);
     },
     _valueChanged: function() {
       this.selected = 0;
@@ -108,8 +113,11 @@
       // paper-item gain focus on-tap so _blur is called too early
       // this.closeResults();
     },
-    _mouseoverItem: function(e) {
+    _mouseenterItem: function(e) {
       this.select(this.indexOf(e.target));
+    },
+    _mouseleaveItems: function() {
+      this.selected = 0;
     },
     _getFiltered: function(
       data, value, filterFn, maxResults, typeaheadDisabled) {

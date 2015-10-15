@@ -17,7 +17,7 @@
       paper-material {
         margin-top: -6px;
       }
-      .iron-selected {
+      .iron-selected:not(paper-input) {
         background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
       paper-item[pressed] {
@@ -33,6 +33,7 @@
       }
     </style>
     <paper-input
+    class="selectable"
     autofocus="[[autofocus]]" 
     maxlength="[[maxlength]]" 
     no-label-float="[[noLabelFloat]]" 
@@ -45,9 +46,9 @@
     on-blur="_blur">
     </paper-input>
     <template is="dom-if" if="[[!_hideResults]]">
-      <paper-material elevation="[[elevation]]">
+      <paper-material elevation="[[elevation]]" on-mouseleave="_mouseleaveItems">
         <template is="dom-repeat" items="[[filteredItems]]">
-          <paper-item on-mouseover="_mouseoverItem" class="selectable">
+          <paper-item on-mouseenter="_mouseenterItem" class="selectable">
               <span>[[item]]</span>
           </paper-item>
         </template>
