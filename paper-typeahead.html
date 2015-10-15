@@ -15,20 +15,16 @@
         font-family: "Roboto";
         display: block;
       }
-
       paper-material {
         margin-top: -6px;
       }
-
       .iron-selected {
         background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
-
       paper-item[pressed] {
         outline: none;
         background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
       }
-
       paper-item {
         cursor: pointer;
         position: relative;
@@ -37,7 +33,6 @@
         --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
       }
     </style>
-
     <paper-input
     autofocus="[[autofocus]]" 
     maxlength="[[maxlength]]" 
@@ -60,5 +55,4 @@
     </template>
   </template>
 </dom-module>
-
 <script src="paper-typeahead.js"></script>
