@@ -15,21 +15,32 @@
         display: block;
       }
       paper-material {
+        border-radius: 0 0 2px 2px;
         margin-top: -6px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: var(--paper-typeahead-results-layer-max-height);
       }
       .iron-selected:not(paper-input) {
-        background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
+        background: var(--paper-typeahead-result-selected-background, --paper-indigo-50);
       }
       paper-item[pressed] {
-        outline: none;
-        background-color: var(--paper-typeahead-selected-result-background-color, --paper-indigo-50);
+        @apply(--paper-typeahead-result-pressed);
       }
       paper-item {
         cursor: pointer;
         position: relative;
-        border-bottom: solid 1px var(--google-grey-300);
         @apply(--paper-typeahead-result);
         --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
+        --paper-item-selected-weight: var(--paper-typeahead-selected-weight, normal);
+        --paper-item-selected: var(--paper-typeahead-result-selected);
+        --paper-item-focused: var(--paper-typeahead-result-focused);
+      }
+      paper-item:not(:last-of-type) {
+        border-bottom: solid 1px var(--paper-typeahead-divider-color, --divider-color);
+      }
+      paper-item:focus:before {
+        display: none;
       }
     </style>
     <paper-input
@@ -42,7 +53,7 @@
     placeholder="[[placeholder]]"
     readonly="[[readonly]]"
     required="[[required]]"
-    value="{{value}}" 
+    value="{{value}}"
     on-blur="_blur">
     </paper-input>
     <template is="dom-if" if="[[!_hideResults]]">
