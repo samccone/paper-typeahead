@@ -10,22 +10,14 @@
       Polymer.IronFormElementBehavior
     ],
     properties: {
-      disabled: {
-        type: Boolean,
-        value: false
-      },
       arrowsUpdateInput: {
         type: Boolean,
-        value: true
+        value: false
       },
       typedValue: {
         type: String,
         observer: '_typedValueChanged',
         notify: true
-      },
-      label: {
-        type: String,
-        value: ''
       },
       elevation: {
         type: Number,
@@ -41,8 +33,10 @@
         type: Boolean,
         value: false
       },
-      data: Array,
-      query: String,
+      data: {
+        type: Array,
+        value: []
+      },
       maxResults: {
         type: Number,
         value: 10
@@ -72,7 +66,7 @@
       // private because we don't want the user to set it true if there is no results
       _hideResults: {
         type: Boolean,
-        value: false
+        value: true
       },
     },
     keyBindings: {
@@ -116,13 +110,9 @@
       // -1 since paper-input-container is part of selectable array, index is shifted
       this.selectResult(this.selected - 1);
     },
-    _typedValueChanged: function(e) {
+    _typedValueChanged: function() {
       this.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
-    },
-    _blur: function() {
-      // paper-item gain focus on-tap so _blur is called too early
-      // this.closeResults();
     },
     _mouseenterItem: function(e) {
       this.select(this.indexOf(e.target));
@@ -145,7 +135,7 @@
      * @param {Number} itemIndex The index of the item to select
      */
     selectResult: function(itemIndex) {
-      this.value = this.filteredItems[itemIndex];
+      this.typedValue = this.value = this.filteredItems[itemIndex];
       this.closeResults();
     },
     /**
