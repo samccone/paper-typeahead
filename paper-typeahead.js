@@ -14,9 +14,14 @@
         type: Boolean,
         value: false
       },
-      value: {
+      arrowsUpdateInput: {
+        type: Boolean,
+        value: true
+      },
+      typedValue: {
         type: String,
-        observer: '_valueChanged'
+        observer: '_typedValueChanged',
+        notify: true
       },
       label: {
         type: String,
@@ -44,7 +49,7 @@
       },
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, value, filterFn, maxResults,' +
+        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,' +
         'typeaheadDisabled)',
         notify: true
       },
@@ -80,20 +85,23 @@
       'iron-activate': '_itemPressed'
     },
     _itemPressed: function(e) {
-      // if pressed item is no paper-input
+      // if pressed item is not paper-input-container
       if (e.detail.selected) {
-        // -1 since paper-input is part of selectable array, index is shifted
         this.selectResult(e.detail.selected - 1);
       }
     },
     _upPressed: function() {
       if (!this._hideResults) {
         this.selectPrevious();
+        this.value = this.selected && this.arrowsUpdateInput ?
+          this.filteredItems[this.selected - 1] : this.typedValue;
       }
     },
     _downPressed: function() {
       if (!this._hideResults) {
         this.selectNext();
+        this.value = this.selected && this.arrowsUpdateInput ?
+          this.filteredItems[this.selected - 1] : this.typedValue;
       // if there are results and they are hide
       } else if (this.filteredItems.length) {
         // just show them
@@ -105,10 +113,10 @@
       this._hideResults = true;
     },
     _enterPressed: function() {
-      // -1 since paper-input is part of selectable array, index is shifted
+      // -1 since paper-input-container is part of selectable array, index is shifted
       this.selectResult(this.selected - 1);
     },
-    _valueChanged: function() {
+    _typedValueChanged: function(e) {
       this.selected = 0;
       this._hideResults = this.filteredItems.length ? false : true;
     },
@@ -123,9 +131,9 @@
       this.selected = 0;
     },
     _getFiltered: function(
-      data, value, filterFn, maxResults, typeaheadDisabled) {
+      data, typedValue, filterFn, maxResults, typeaheadDisabled) {
       if (typeaheadDisabled) { return []; }
-      return filterFn.call(this, data.base, value)
+      return filterFn.call(this, data.base, typedValue)
         .slice(0, maxResults);
     },
     get items() {
