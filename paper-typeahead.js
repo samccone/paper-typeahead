@@ -5,6 +5,9 @@
     behaviors: [
       Polymer.IronA11yKeysBehavior,
       Polymer.IronSelectableBehavior,
+      Polymer.PaperInputBehavior,
+      Polymer.IronControlState,
+      Polymer.IronFormElementBehavior
     ],
     properties: {
       disabled: {
