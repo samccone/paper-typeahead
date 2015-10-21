@@ -19,8 +19,7 @@ function(data, input) { return data; }
 
 * [x] Add tab / enter result selection
 * [ ] Add conditional empty list template
-* [ ] Use iron-list to display results
-* [ ] Add better style interface
+* [x] Add better style interface
 * [ ] jsdoc all the methods
 * [x] extract js to external file
 * [ ] add tests
