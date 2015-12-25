@@ -35,7 +35,7 @@
       },
       data: {
         type: Array,
-        value: []
+        value: function() { return []; }
       },
       maxResults: {
         type: Number,
@@ -127,7 +127,7 @@
         .slice(0, maxResults);
     },
     get items() {
-      return Array.from(this.querySelectorAll('.selectable'));
+      return Array.from(Polymer.dom(this.root).querySelectorAll('.selectable'));
     },
     /**
      * Select a Result in the filteredItems array by index then close the results.
