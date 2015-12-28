@@ -3,7 +3,6 @@
 <link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="bower_components/paper-material/paper-material.html">
-<link rel="import" href="bower_components/font-roboto/roboto.html">
 <link rel="import" href="bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="bower_components/iron-selector/iron-selectable.html">
 <link rel="import" href="bower_components/iron-behaviors/iron-control-state.html">
@@ -15,7 +14,7 @@
   <template>
     <style>
       :host {
-        font-family: "Roboto";
+        @apply(--paper-font-common-base);
         display: block;
       }
       input::-webkit-input-placeholder {
