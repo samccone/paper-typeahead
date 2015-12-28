@@ -143,6 +143,8 @@
      */
     selectResult: function(itemIndex) {
       this.typedValue = this.value = this.filteredItems[itemIndex];
+
+      this.fire('selected', {target: this.value});
       this.closeResults();
     },
     /**
