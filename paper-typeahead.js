@@ -118,8 +118,12 @@
       this.selectResult(this.selected - 1);
     },
     _typedValueChanged: function() {
-      this.selected = 0;
-      this._hideResults = this.filteredItems.length ? false : true;
+      var hasItems = this.filteredItems && this.filteredItems.length;
+      if (hasItems) {
+        this.selected = 1;
+      }
+
+      this._hideResults = !hasItems;
     },
     _mouseenterItem: function(e) {
       this.select(this.indexOf(e.target));
