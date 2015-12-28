@@ -68,7 +68,8 @@
           };
         }
       },
-      // private because we don't want the user to set it true if there is no results
+      // private because we don't want the user to
+      // set it true if there is no results
       _hideResults: {
         type: Boolean,
         value: true
@@ -114,8 +115,11 @@
       this._hideResults = true;
     },
     _enterPressed: function() {
-      // -1 since paper-input-container is part of selectable array, index is shifted
-      this.selectResult(this.selected - 1);
+      // -1 since paper-input-container is part of
+      // selectable array, index is shifted
+      if (this.selected > 0) {
+        this.selectResult(this.selected - 1);
+      }
     },
     _typedValueChanged: function() {
       var hasItems = this.filteredItems && this.filteredItems.length;
@@ -141,7 +145,8 @@
       return Array.from(Polymer.dom(this.root).querySelectorAll('.selectable'));
     },
     /**
-     * Select a Result in the filteredItems array by index then close the results.
+     * Select a Result in the filteredItems array by index then
+     * close the results.
      *
      * @param {Number} itemIndex The index of the item to select
      */
