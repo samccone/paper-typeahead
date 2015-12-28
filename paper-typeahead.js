@@ -76,7 +76,9 @@
       'enter': '_enterPressed'
     },
     listeners: {
-      'iron-activate': '_itemPressed'
+      'iron-activate': '_itemPressed',
+      'focus': '_onFocus',
+      'blur': '_onBlur',
     },
     _itemPressed: function(e) {
       // if pressed item is not paper-input-container
@@ -144,10 +146,13 @@
      * @return {Boolean} True if the results are displayed.
      */
     tryDisplayResults: function() {
-      if (this._hideResults && this.filteredItems.length) {
-        this._hideResults = false;
+      var items = this.filteredItems;
+
+      if (this._hideResults && items && items.length) {
+        this.set('_hideResults', false);
       }
-      return !_hideResults;
+
+      return !this._hideResults;
     },
     /**
      * Manually hide the results.
@@ -161,6 +166,18 @@
     closeResults: function() {
       this._hideResults = true;
       this.selected = 0;
-    }
+    },
+    /**
+     * Stop the _onBlur event from firing when scrollbar is clicked.
+     */
+    _mouseDownItems: function(event) {
+      event.preventDefault();
+    },
+    _onFocus: function() {
+      this.tryDisplayResults();
+    },
+    _onBlur: function() {
+      this.closeResults();
+    },
   });
 })();

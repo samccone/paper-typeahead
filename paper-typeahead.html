@@ -63,12 +63,12 @@
         display: none;
       }
     </style>
-    <paper-input-container 
+    <paper-input-container
       class="selectable"
-      no-label-float="[[noLabelFloat]]" 
-      always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" 
-      auto-validate$="[[autoValidate]]" 
-      disabled$="[[disabled]]" 
+      no-label-float="[[noLabelFloat]]"
+      always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
+      auto-validate$="[[autoValidate]]"
+      disabled$="[[disabled]]"
       invalid="[[invalid]]">
       <label hidden$="[[!label]]">[[label]]</label>
       <input is="iron-input" id="input"
@@ -100,7 +100,8 @@
         autocorrect$="on"
         on-change="_onChange">
         <template is="dom-if" if="[[!_hideResults]]">
-          <paper-material elevation="[[elevation]]" on-mouseleave="_mouseleaveItems">
+          <paper-material elevation="[[elevation]]"
+              on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems">
             <template is="dom-repeat" items="[[filteredItems]]">
               <paper-item on-mouseenter="_mouseenterItem" class="selectable">
                 <span>[[item]]</span>
@@ -110,7 +111,6 @@
         </template>
         <paper-input-error>[[errorMessage]]</paper-input-error>
     </paper-input-container>
-    
   </template>
 </dom-module>
 <script src="paper-typeahead.js"></script>
