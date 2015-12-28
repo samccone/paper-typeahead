@@ -14,6 +14,10 @@
         type: Boolean,
         value: false
       },
+      showEmptyResults: {
+        type: Boolean,
+        value: false
+      },
       typedValue: {
         type: String,
         observer: '_typedValueChanged',
@@ -54,7 +58,7 @@
             var r = RegExp(value, 'i');
 
             if (value === '') {
-              return [];
+              return this.showEmptyResults ? data : [];
             }
 
             return data.filter(function(v) {
