@@ -21,6 +21,7 @@
       typedValue: {
         type: String,
         observer: '_typedValueChanged',
+        value: '',
         notify: true
       },
       elevation: {
