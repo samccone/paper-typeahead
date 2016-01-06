@@ -15,8 +15,5 @@
   "devDependencies": {
     "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
-  },
-  "resolutions": {
-    "polymer": "^1.2.1"
   }
 }
