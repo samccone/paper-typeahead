@@ -14,6 +14,7 @@
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#~1.0.4"
   },
   "devDependencies": {
-    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1"
+    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
   }
 }
