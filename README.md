@@ -1,19 +1,11 @@
 ### Paper typeahead
 
+[Demo](http://samccone.github.io/paper-typeahead/components/paper-typeahead/demo/)
+[Docs](http://samccone.github.io/paper-typeahead/components/paper-typeahead/)
+
 ![out](https://cloud.githubusercontent.com/assets/883126/10092995/9a69aa06-6301-11e5-85d3-02ac8e537eeb.gif)
 
-#### API
-
-* data - **required** an array of your data
-* input-label - **optional** the label for your input
-* filter-fn - **optional** your filter by logic
-```js
-function(data, input) { return data; }
-```
-
-#### Events
-
-* `on-item-selected`: e.details === item that was tapped
+------------
 
 #### Todo
 
