@@ -1,3 +1,27 @@
+<!--
+
+### Styling
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-font-common-base`| default font base | `default`
+`--paper-input-container-color`| input container text color | `--secondary-text-color`
+`--paper-typeahead-results-layer-max-height` | max height for the results | `auto`
+`--paper-typeahead-results` | typeahead result mixin | `{}`
+`--paper-typeahead-result-selected-background` | typeahead result selected background | `--paper-indigo-50`
+`--paper-typeahead-result-pressed` | paper item pressed mixin | `{}`
+`--paper-typeahead-divider-color` | paper item result color divider | `--divider-color`
+`--paper-typeahead-result-min-height` | min height of a result |  `30px`
+`--paper-typeahead-selected-weight` | font-weight of a single result | `normal`
+`--paper-typeahead-result-selected` | selected style mixin | `{}`
+`--paper-typeahead-result-focused` | focused style mixin | `{}`
+
+
+@demo demo/index.html
+-->
+
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
@@ -37,7 +61,7 @@
         position: absolute;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        max-height: var(--paper-typeahead-results-layer-max-height);
+        max-height: var(--paper-typeahead-results-layer-max-height, auto);
         @apply(--paper-typeahead-results);
       }
       .iron-selected:not(paper-input-container) {
