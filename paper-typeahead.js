@@ -231,13 +231,6 @@
     },
 
     /**
-     * Manually hide the results.
-     */
-    hideResults: function() {
-      this._hideResults = true;
-    },
-
-    /**
      * Manually hide the results and reset selected item.
      */
     closeResults: function() {
