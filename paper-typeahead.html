@@ -85,6 +85,9 @@ Custom property | Description | Default
       paper-item:focus:before {
         display: none;
       }
+      [hidden] {
+        display:none;
+      }
     </style>
     <paper-input-container
       class="selectable"
@@ -122,16 +125,14 @@ Custom property | Description | Default
         autocapitalize$="[[autocapitalize]]"
         autocorrect$="on"
         on-change="_onChange">
-        <template is="dom-if" if="[[!_hideResults]]">
-          <paper-material elevation="[[elevation]]"
-              on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems">
-            <template is="dom-repeat" items="[[filteredItems]]" on-dom-change="_updateItems">
-              <paper-item on-mouseenter="_mouseenterItem" class="selectable">
-                <span>[[item]]</span>
-              </paper-item>
-            </template>
-          </paper-material>
-        </template>
+        <paper-material hidden$="[[_hideResults]]" elevation="[[elevation]]"
+            on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems">
+          <template is="dom-repeat" items="[[filteredItems]]" on-dom-change="_updateItems">
+            <paper-item on-mouseenter="_mouseenterItem" class="selectable">
+              <span>[[item]]</span>
+            </paper-item>
+          </template>
+        </paper-material>
         <paper-input-error>[[errorMessage]]</paper-input-error>
     </paper-input-container>
   </template>
