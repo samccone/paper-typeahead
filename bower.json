@@ -9,7 +9,7 @@
     "paper-styles": "PolymerElements/paper-styles#~1.0.11",
     "paper-material": "PolymerElements/paper-material#~1.0.2",
     "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#~1.0.6",
-    "iron-selector": "PolymerElements/iron-selector#~1.0.7",
+    "iron-selector": "PolymerElements/iron-selector#~1.0.8",
     "iron-behaviors": "PolymerElements/iron-behaviors#~1.0.9",
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#~1.0.4"
   },

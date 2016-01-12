@@ -163,10 +163,6 @@
      */
     _typedValueChanged: function() {
       var hasItems = this.filteredItems && this.filteredItems.length;
-      if (hasItems) {
-        this.selected = 1;
-      }
-
       this._hideResults = !hasItems;
     },
 
@@ -195,8 +191,14 @@
         .slice(0, maxResults);
     },
 
-    get items() {
-      return Array.from(Polymer.dom(this.root).querySelectorAll('.selectable'));
+    _updateItems: function() {
+      this._setItems(
+        Array.from(
+          Polymer.dom(this.root).querySelectorAll('.selectable')
+        )
+      );
+      this.selected = 1;
+      this._updateSelected();
     },
 
     /**
