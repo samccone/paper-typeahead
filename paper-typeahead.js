@@ -134,8 +134,9 @@
           this.filteredItems[this.selected - 1] : this.typedValue;
       // if there are results and they are hide
       } else if (this.filteredItems.length) {
-        // just show them
+        // show them and select the first one
         this._hideResults = false;
+        this.selected = 1;
       }
     },
 
