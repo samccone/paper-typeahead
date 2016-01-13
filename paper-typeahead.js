@@ -92,7 +92,7 @@
     keyBindings: {
       'up': '_upPressed',
       'down': '_downPressed',
-      'esc': '_escPressed',
+      'esc': 'closeResults',
       'enter': '_enterPressed'
     },
 
@@ -138,14 +138,6 @@
         this._hideResults = false;
         this.selected = 1;
       }
-    },
-
-    /**
-     * @private
-     */
-    _escPressed: function() {
-      this.selected = 0;
-      this._hideResults = true;
     },
 
     /**
