@@ -107,7 +107,7 @@ Custom property | Description | Default
       auto-validate$="[[autoValidate]]"
       disabled$="[[disabled]]"
       invalid="[[invalid]]">
-      <label hidden$="[[!label]]">[[label]]</label>
+      <label hidden$="[[!label]]" on-tap="_onLabelTap">[[label]]</label>
       <input is="iron-input" id="input"
         aria-labelledby$="[[_ariaLabelledBy]]"
         aria-describedby$="[[_ariaDescribedBy]]"

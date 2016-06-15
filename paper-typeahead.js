@@ -268,5 +268,12 @@
     _onBlur: function() {
       this.closeResults();
     },
+
+    /**
+     * @private
+     */
+    _onLabelTap: function() {
+      this.$.input.focus();
+    },
   });
 })();
