@@ -225,10 +225,13 @@
      * @param {!number} itemIndex The index of the item to select
      */
     selectResult: function(itemIndex) {
-      this.typedValue = this.value = this.filteredItems[itemIndex];
-
-      this.fire('selected', {target: this.value});
-      this.closeResults();
+      if (this.filteredItems[itemIndex] === undefined) {
+        this.fire('customvalentered', {target: this.typedValue});
+      } else {
+        this.typedValue = this.value = this.filteredItems[itemIndex];
+        this.fire('selected', {target: this.value});
+        this.closeResults();
+      }
     },
 
     /**
