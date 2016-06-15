@@ -163,7 +163,7 @@
       // -1 since paper-input-container is part of
       // selectable array, index is shifted
       if (this.selected > 0) {
-        this.selectResult(this.selected - 1);
+        return this.selectResult(this.selected - 1);
       }
     },
 
