@@ -21,7 +21,10 @@
     is: 'paper-typeahead',
 
     behaviors: [
-      Polymer.IronA11yKeysBehavior,
+      //Commented out because it causes duplicate
+      //key event registrations... This should be fixed when polymer
+      //is updated:
+      //Polymer.IronA11yKeysBehavior,
       Polymer.IronSelectableBehavior,
       Polymer.PaperInputBehavior,
       Polymer.IronControlState,
