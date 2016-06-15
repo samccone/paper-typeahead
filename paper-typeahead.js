@@ -76,7 +76,7 @@
       filteredItems: {
         type: Array,
         computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,' +
-        'typeaheadDisabled)',
+            'typeaheadDisabled)',
         notify: true
       },
 
@@ -148,7 +148,7 @@
         this.selectNext();
         this.value = this.selected && this.arrowsUpdateInput ?
           this.filteredItems[this.selected - 1] : this.typedValue;
-      // if there are results and they are hide
+        // if there are results and they are hide
       } else if (this.filteredItems.length) {
         // show them and select the first one
         this._hideResults = false;
@@ -193,19 +193,19 @@
      * @private
      * @return {Array}
      */
-    _getFiltered: function(
-      data, typedValue, filterFn, maxResults, typeaheadDisabled) {
+    _getFiltered: function(data,
+                      typedValue,
+                      filterFn,
+                      maxResults,
+                      typeaheadDisabled) {
       if (typeaheadDisabled) { return []; }
       return filterFn.call(this, data.base, typedValue)
         .slice(0, maxResults);
     },
 
     _updateItems: function() {
-      this._setItems(
-        Array.from(
-          Polymer.dom(this.root).querySelectorAll('.selectable')
-        )
-      );
+      this._setItems(Array.from(
+            Polymer.dom(this.root).querySelectorAll('.selectable')));
       this.selected = 1;
       this._updateSelected();
     },
@@ -227,7 +227,7 @@
      * Manually display the results if the filteredItems array is not empty.
      *
      * @return {boolean} True if the results are displayed.
-    */
+     */
     tryDisplayResults: function() {
       var items = this.filteredItems;
 
