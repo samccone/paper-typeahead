@@ -194,6 +194,11 @@
 
     /**
      * @private
+     * @param {{base: Array}} data
+     * @param {string} typedValue
+     * @param {Function<Array>} filterFn
+     * @param {number} maxResults
+     * @param {boolean} typeaheadDisabled
      * @return {Array}
      */
     _getFiltered: function(data,
