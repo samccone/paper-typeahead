@@ -229,10 +229,14 @@
      * @param {!number} itemIndex The index of the item to select
      */
     selectResult: function(itemIndex) {
-      if (this.filteredItems[itemIndex] === undefined) {
+      // Since the results can be sorted we need to normalize here.
+      var targetResult = this.filteredItems.sort(
+          this.sortFn || function() {})[itemIndex];
+
+      if (targetResult === undefined) {
         this.fire('customvalentered', {target: this.typedValue});
       } else {
-        this.typedValue = this.value = this.filteredItems[itemIndex];
+        this.typedValue = this.value = targetResult;
         this.fire('selected', {target: this.value});
         this.closeResults();
       }
