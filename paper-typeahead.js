@@ -32,6 +32,10 @@
     ],
 
     properties: {
+      sortFn: {
+        type: Function
+      },
+
       arrowsUpdateInput: {
         type: Boolean,
         value: false
