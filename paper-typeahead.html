@@ -34,17 +34,18 @@ Custom property | Description | Default
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-input/paper-input-error.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-styles/paper-styles.html">
-<link rel="import" href="../paper-material/paper-material.html">
+
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
-<link rel="import" href="../iron-selector/iron-selectable.html">
 <link rel="import" href="../iron-behaviors/iron-control-state.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-selector/iron-selectable.html">
 <link rel="import" href="../paper-input/paper-input-behavior.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-input/paper-input-error.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
 
 <dom-module id="paper-typeahead">
   <template>
@@ -97,45 +98,47 @@ Custom property | Description | Default
         display: none;
       }
       [hidden] {
-        display:none;
+        display: none;
       }
     </style>
     <paper-input-container
-      class="selectable"
-      no-label-float="[[noLabelFloat]]"
-      always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
-      auto-validate$="[[autoValidate]]"
-      disabled$="[[disabled]]"
-      invalid="[[invalid]]">
-      <label hidden$="[[!label]]" on-tap="_onLabelTap">[[label]]</label>
-      <input is="iron-input" id="input"
-        aria-labelledby$="[[_ariaLabelledBy]]"
-        aria-describedby$="[[_ariaDescribedBy]]"
+        class="selectable"
+        no-label-float="[[noLabelFloat]]"
+        always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
+        auto-validate$="[[autoValidate]]"
         disabled$="[[disabled]]"
-        bind-value="{{value}}"
-        value="{{typedValue::input}}"
-        invalid="{{invalid}}"
-        prevent-invalid-input="[[preventInvalidInput]]"
-        allowed-pattern="[[allowedPattern]]"
-        validator="[[validator]]"
-        type$="[[type]]"
-        pattern$="[[pattern]]"
-        required$="[[required]]"
-        autocomplete$="[[autocomplete]]"
-        autofocus$="[[autofocus]]"
-        inputmode$="[[inputmode]]"
-        minlength$="[[minlength]]"
-        maxlength$="[[maxlength]]"
-        min$="[[min]]"
-        max$="[[max]]"
-        step$="[[step]]"
-        name$="[[name]]"
-        placeholder$="[[placeholder]]"
-        readonly$="[[readonly]]"
-        size$="[[size]]"
-        autocapitalize$="[[autocapitalize]]"
-        autocorrect$="on"
-        on-change="_onChange">
+        invalid="[[invalid]]">
+      <label hidden$="[[!label]]" on-tap="_onLabelTap">[[label]]</label>
+      <input
+          is="iron-input"
+          id="input"
+          aria-labelledby$="[[_ariaLabelledBy]]"
+          aria-describedby$="[[_ariaDescribedBy]]"
+          disabled$="[[disabled]]"
+          bind-value="{{value}}"
+          value="{{typedValue::input}}"
+          invalid="{{invalid}}"
+          prevent-invalid-input="[[preventInvalidInput]]"
+          allowed-pattern="[[allowedPattern]]"
+          validator="[[validator]]"
+          type$="[[type]]"
+          pattern$="[[pattern]]"
+          required$="[[required]]"
+          autocomplete$="[[autocomplete]]"
+          autofocus$="[[autofocus]]"
+          inputmode$="[[inputmode]]"
+          minlength$="[[minlength]]"
+          maxlength$="[[maxlength]]"
+          min$="[[min]]"
+          max$="[[max]]"
+          step$="[[step]]"
+          name$="[[name]]"
+          placeholder$="[[placeholder]]"
+          readonly$="[[readonly]]"
+          size$="[[size]]"
+          autocapitalize$="[[autocapitalize]]"
+          autocorrect$="on"
+          on-change="_onChange">
         <paper-material hidden$="[[_hideResults]]" elevation="[[elevation]]"
             on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems" tabindex="-1">
           <template is="dom-repeat" sort="[[sortFn]]" items="[[filteredItems]]" on-dom-change="_updateItems">
