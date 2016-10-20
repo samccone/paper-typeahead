@@ -21,11 +21,7 @@
     is: 'paper-typeahead',
 
     behaviors: [
-      //Commented out because it causes duplicate
-      //key event registrations... This should be fixed when polymer
-      //is updated:
-      //Polymer.IronA11yKeysBehavior,
-      Polymer.IronSelectableBehavior,
+      Polymer.IronA11yKeysBehavior,
       Polymer.PaperInputBehavior,
       Polymer.IronControlState,
       Polymer.IronFormElementBehavior
@@ -104,6 +100,10 @@
         }
       },
 
+      selectorItems: {
+        type: Array
+      },
+
       // private because we don't want the user to
       // set it true if there is no results
       _hideResults: {
@@ -130,10 +130,7 @@
      * @param {Event} e
      */
     _itemPressed: function(e) {
-      // if pressed item is not paper-input-container
-      if (e.detail.selected) {
-        this.selectResult(e.detail.selected - 1);
-      }
+      this.selectResult(e.detail.selected);
     },
 
     /**
@@ -141,9 +138,9 @@
      */
     _upPressed: function() {
       if (!this._hideResults) {
-        this.selectPrevious();
+        this.$.selector.selectPrevious();
         this.value = this.selected && this.arrowsUpdateInput ?
-          this.filteredItems[this.selected - 1] : this.typedValue;
+          this.filteredItems[this.selected] : this.typedValue;
       }
     },
 
@@ -152,14 +149,14 @@
      */
     _downPressed: function() {
       if (!this._hideResults) {
-        this.selectNext();
+        this.$.selector.selectNext();
         this.value = this.selected && this.arrowsUpdateInput ?
-          this.filteredItems[this.selected - 1] : this.typedValue;
+          this.filteredItems[this.selected] : this.typedValue;
         // if there are results and they are hide
       } else if (this.filteredItems.length) {
         // show them and select the first one
         this._hideResults = false;
-        this.selected = 1;
+        this.selected = 0;
       }
     },
 
@@ -167,11 +164,7 @@
      * @private
      */
     _enterPressed: function() {
-      // -1 since paper-input-container is part of
-      // selectable array, index is shifted
-      if (this.selected > 0) {
-        return this.selectResult(this.selected - 1);
-      }
+      return this.selectResult(this.selected);
     },
 
     /**
@@ -186,7 +179,7 @@
      * @private
      */
     _mouseenterItem: function(e) {
-      this.select(this.indexOf(e.target));
+      this.selected = this.$.selector.indexOf(e.target);
     },
 
     /**
@@ -216,10 +209,9 @@
     },
 
     _updateItems: function() {
-      this._setItems(Array.from(
-            Polymer.dom(this.root).querySelectorAll('.selectable')));
-      this.selected = 1;
-      this._updateSelected();
+      this.selectorItems = Array.from(
+          Polymer.dom(this.root).querySelectorAll('.selectable'));
+      this.selected = 0;
     },
 
     /**
