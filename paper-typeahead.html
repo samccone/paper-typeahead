@@ -39,7 +39,7 @@ Custom property | Description | Default
 <link rel="import" href="../iron-behaviors/iron-control-state.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../iron-input/iron-input.html">
-<link rel="import" href="../iron-selector/iron-selectable.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../paper-input/paper-input-behavior.html">
 <link rel="import" href="../paper-input/paper-input-container.html">
 <link rel="import" href="../paper-input/paper-input-error.html">
@@ -142,11 +142,13 @@ Custom property | Description | Default
           on-change="_onChange">
         <paper-material hidden$="[[_hideResults]]" elevation="[[elevation]]"
             on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems" tabindex="-1">
-          <template is="dom-repeat" sort="[[sortFn]]" items="[[filteredItems]]" on-dom-change="_updateItems">
-            <paper-item on-mouseenter="_mouseenterItem" class="selectable" tabindex="-1">
-              <span>[[item]]</span>
-            </paper-item>
-          </template>
+          <iron-selector id="selector" selected="{{selected}}" items="[[selectorItems]]">
+            <template is="dom-repeat" sort="[[sortFn]]" items="[[filteredItems]]" on-dom-change="_updateItems">
+              <paper-item on-mouseenter="_mouseenterItem" class="selectable" tabindex="-1">
+                <span>[[item]]</span>
+              </paper-item>
+            </template>
+          </iron-selector>
         </paper-material>
         <paper-input-error tabindex="-1">[[errorMessage]]</paper-input-error>
     </paper-input-container>
