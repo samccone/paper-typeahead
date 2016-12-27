@@ -89,8 +89,8 @@
 
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,'
-          + 'typeaheadDisabled, dataKey)',
+        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,' +
+        'typeaheadDisabled, dataKey)',
         notify: true
       },
 
