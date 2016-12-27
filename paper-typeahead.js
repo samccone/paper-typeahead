@@ -71,6 +71,17 @@
         value: function() { return []; }
       },
 
+      /**
+       * dataKey provides a way to index into your data objects and use a property for display.
+       *
+       * For instance if you had an array [{color: 'red'}, {color: 'pink'}], you would set the dataKey to 'color'
+       * In more complex situations you can do the following, 'color.name' which will extract from {color: {name: 'red'}}.
+       */
+      dataKey: {
+        type: String,
+        value: '',
+      },
+
       maxResults: {
         type: Number,
         value: 10
@@ -78,23 +89,24 @@
 
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,' +
-            'typeaheadDisabled)',
+        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,'
+          + 'typeaheadDisabled, dataKey)',
         notify: true
       },
 
       filterFn: {
         type: Function,
         value: function() {
-          return function(data, value) {
+          return function(data, value, dataKey) {
             var r = RegExp(value, 'i');
 
             if (value === '') {
               return this.showEmptyResults ? data : [];
             }
 
-            return data.filter(function(v) {
-              return (r.test(v) ? v : null);
+            return data.filter(v => {
+              const normalizedData = this._getDataItemValue(v, dataKey);
+              return (r.test(normalizedData) ? normalizedData : null);
             });
           };
         }
@@ -196,15 +208,19 @@
      * @param {Function<Array>} filterFn
      * @param {number} maxResults
      * @param {boolean} typeaheadDisabled
+     * @param {string} dataKey
      * @return {Array}
      */
-    _getFiltered: function(data,
-                      typedValue,
-                      filterFn,
-                      maxResults,
-                      typeaheadDisabled) {
+    _getFiltered: function(
+      data,
+      typedValue,
+      filterFn,
+      maxResults,
+      typeaheadDisabled,
+      dataKey) {
       if (typeaheadDisabled) { return []; }
-      return filterFn.call(this, data.base, typedValue)
+
+      return filterFn.call(this, data.base, typedValue, dataKey)
         .slice(0, maxResults);
     },
 
@@ -228,8 +244,9 @@
       if (targetResult === undefined) {
         this.fire('customvalentered', {target: this.typedValue});
       } else {
-        this.typedValue = this.value = targetResult;
-        this.fire('selected', {target: this.value});
+        this.typedValue = this.value = this._getDataItemValue(
+          targetResult, this.dataKey);
+        this.fire('selected', {target: this.value, targetResult: targetResult});
         this.closeResults();
       }
     },
@@ -247,6 +264,10 @@
       }
 
       return !this._hideResults;
+    },
+
+    getDataDisplayValue: function(data, dataKey) {
+      return this._getDataItemValue(data, dataKey);
     },
 
     /**
@@ -285,6 +306,27 @@
      */
     _onLabelTap: function() {
       this.$.input.focus();
+    },
+
+    /**
+     * @private
+     * @param {!Array<?>} data
+     * @param {string} dataKey
+     */
+    _getDataItemValue: function(data, dataKey) {
+      if (this.dataKey === '') {
+        return data;
+      }
+
+      const splitKey = this.dataKey.split('.');
+
+      if (splitKey.length === 1) {
+        return data[dataKey];
+      }
+
+      return splitKey.slice(1).reduce((prev, curr) => {
+        return prev[curr];
+      }, data[splitKey[0]]);
     },
   });
 })();

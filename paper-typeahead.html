@@ -145,7 +145,7 @@ Custom property | Description | Default
           <iron-selector id="selector" selected="{{selected}}" items="[[selectorItems]]">
             <template is="dom-repeat" sort="[[sortFn]]" items="[[filteredItems]]" on-dom-change="_updateItems">
               <paper-item on-mouseenter="_mouseenterItem" class="selectable" tabindex="-1">
-                <span>[[item]]</span>
+                <span>[[getDataDisplayValue(item, dataKey)]]</span>
               </paper-item>
             </template>
           </iron-selector>

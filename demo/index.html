@@ -5,9 +5,26 @@
     <link rel="import" href="../paper-typeahead.html">
   </head>
   <body>
+    <h1>List of string data</h1>
     <template id="sample" is="dom-bind">
       <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
       <paper-typeahead label="which dog?" data="[[data]]"></paper-typeahead>
     </template>
+    <h1>List of object data</h1>
+    <template is="dom-bind" id="object-list">
+      <paper-typeahead
+        label="which color"
+        data-key="name.title"
+        data="[[data]]"></paper-typeahead>
+    </template>
+    <script>
+      document.body.querySelector('#object-list').data = [
+        {name: {title: 'brown'}},
+        {name: {title: 'pink'}},
+        {name: {title: 'orange'}},
+        {name: {title: 'teal'}},
+        {name: {title: 'purple'}},
+      ]
+    </script>
   </body>
 </html>
