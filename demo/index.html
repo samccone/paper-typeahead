@@ -17,7 +17,19 @@
         data-key="name.title"
         data="[[data]]"></paper-typeahead>
     </template>
+    <h1>Fetch data on keypress.</h1>
+    <template is="dom-bind" id="data-fetch">
+      <paper-typeahead
+        label="which color"
+        fetch-data="[[fetchFn]]"
+        ></paper-typeahead>
+    </template>
+
     <script>
+      document.querySelector('#data-fetch').fetchFn = function(typedValue) {
+        return Promise.resolve().then(() => ['a', 'b', 'c']);
+      }
+
       document.body.querySelector('#object-list').data = [
         {name: {title: 'brown'}},
         {name: {title: 'pink'}},

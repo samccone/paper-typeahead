@@ -44,7 +44,6 @@
 
       typedValue: {
         type: String,
-        observer: '_typedValueChanged',
         value: '',
         notify: true
       },
@@ -63,6 +62,15 @@
 
       typeaheadDisabled: {
         type: Boolean,
+        value: false
+      },
+
+      /**
+       * If defined by a user, function is invoked on every keypress. The result of the function
+       * is expected to be a Promise that resolves the a data array.
+       */
+      fetchData: {
+        type: Function,
         value: false
       },
 
@@ -89,9 +97,8 @@
 
       filteredItems: {
         type: Array,
-        computed: '_getFiltered(data.*, typedValue, filterFn, maxResults,' +
-        'typeaheadDisabled, dataKey)',
-        notify: true
+        notify: true,
+        value: [],
       },
 
       filterFn: {
@@ -136,6 +143,11 @@
       'focus': '_onFocus',
       'blur': '_onBlur',
     },
+
+    observers: [
+      '_calculateFilteredData(data.*, typedValue, filterFn, maxResults,' +
+      'typeaheadDisabled, dataKey, fetchData)',
+    ],
 
     /**
      * @private
@@ -182,14 +194,6 @@
     /**
      * @private
      */
-    _typedValueChanged: function() {
-      var hasItems = this.filteredItems && this.filteredItems.length;
-      this._hideResults = !hasItems;
-    },
-
-    /**
-     * @private
-     */
     _mouseenterItem: function(e) {
       this.selected = this.$.selector.indexOf(e.target);
     },
@@ -203,25 +207,41 @@
 
     /**
      * @private
-     * @param {{base: Array}} data
+     * @param {{base: Array<?>}} data
      * @param {string} typedValue
      * @param {Function<Array>} filterFn
      * @param {number} maxResults
      * @param {boolean} typeaheadDisabled
      * @param {string} dataKey
+     * @param {Function<Promise<Array<?>>>} fetchData
      * @return {Array}
      */
-    _getFiltered: function(
+    _calculateFilteredData: function(
       data,
       typedValue,
       filterFn,
       maxResults,
       typeaheadDisabled,
-      dataKey) {
-      if (typeaheadDisabled) { return []; }
+      dataKey,
+      fetchData
+    ) {
+      Promise.resolve().then(() => {
+        if (typeaheadDisabled) {
+          return [];
+        }
 
-      return filterFn.call(this, data.base, typedValue, dataKey)
-        .slice(0, maxResults);
+        if (fetchData !== false) {
+          return this.fetchData(typedValue);
+        }
+
+        return data.base;
+      }).then(results => {
+        const filteredItems = filterFn.call(
+          this, results, typedValue, dataKey).slice(0, maxResults);
+
+        this.set('filteredItems', filteredItems);
+        this.set('_hideResults', filteredItems.length === 0);
+      });
     },
 
     _updateItems: function() {
