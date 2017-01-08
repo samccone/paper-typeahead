@@ -53,6 +53,14 @@ Custom property | Description | Default
     <style>
       :host {
         @apply(--paper-font-common-base);
+        --paper-input-container-label: {
+          z-index: -1;
+        }
+
+        --paper-input-container-underline: {
+          z-index: -1;
+        }
+
         display: block;
       }
       input::-webkit-input-placeholder {
@@ -86,6 +94,7 @@ Custom property | Description | Default
       paper-item {
         cursor: pointer;
         position: relative;
+        background: #fff;
         @apply(--paper-typeahead-result);
         --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
         --paper-item-selected-weight: var(--paper-typeahead-selected-weight, normal);
@@ -155,7 +164,7 @@ Custom property | Description | Default
               sort="[[sortFn]]"
               items="[[filteredItems]]"
               on-dom-change="_updateItems">
-              <paper-item on-mouseenter="_mouseenterItem" class="selectable" tabindex="-1">
+              <paper-item on-mouseenter="_mouseenterItem" class="result-item selectable" tabindex="-1">
                 <span>[[getDataDisplayValue(item, dataKey)]]</span>
               </paper-item>
             </template>
