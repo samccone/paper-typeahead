@@ -3,6 +3,12 @@
     <link rel="import" href="../../polymer/polymer.html">
     <link rel="import" href="../../iron-ajax/iron-ajax.html">
     <link rel="import" href="../paper-typeahead.html">
+    <style>
+      h1 {
+        font-family: Roboto, Helvetica Neue, Helvetica;
+        font-weight: 100;
+      }
+    </style>
   </head>
   <body>
     <h1>List of string data</h1>
@@ -11,6 +17,20 @@
       <paper-typeahead label="which dog?" data="[[data]]"></paper-typeahead>
     </template>
     <h1>List of object data</h1>
+    <pre>
+    <code>
+      [
+        {name: {title: 'red'}},
+        {name: {title: 'green'}},
+        {name: {title: 'blue'}},
+        {name: {title: 'brown'}},
+        {name: {title: 'pink'}},
+        {name: {title: 'orange'}},
+        {name: {title: 'teal'}},
+        {name: {title: 'purple'}},
+      ]
+    </code>
+    </pre>
     <template is="dom-bind" id="object-list">
       <paper-typeahead
         label="which color"
@@ -18,6 +38,13 @@
         data="[[data]]"></paper-typeahead>
     </template>
     <h1>Fetch data on keypress.</h1>
+    <pre>
+      <code>
+      document.querySelector('#data-fetch').fetchFn = function(typedValue) {
+        return Promise.resolve().then(() => ['red', 'green', 'blue', 'teal']);
+      }
+      </code>
+    </pre>
     <template is="dom-bind" id="data-fetch">
       <paper-typeahead
         label="which color"
@@ -27,10 +54,13 @@
 
     <script>
       document.querySelector('#data-fetch').fetchFn = function(typedValue) {
-        return Promise.resolve().then(() => ['a', 'b', 'c']);
+        return Promise.resolve().then(() => ['red', 'green', 'blue', 'teal']);
       }
 
       document.body.querySelector('#object-list').data = [
+        {name: {title: 'red'}},
+        {name: {title: 'green'}},
+        {name: {title: 'blue'}},
         {name: {title: 'brown'}},
         {name: {title: 'pink'}},
         {name: {title: 'orange'}},
