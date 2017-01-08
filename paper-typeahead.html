@@ -140,10 +140,21 @@ Custom property | Description | Default
           autocapitalize$="[[autocapitalize]]"
           autocorrect$="on"
           on-change="_onChange">
-        <paper-material hidden$="[[_hideResults]]" elevation="[[elevation]]"
-            on-mousedown="_mouseDownItems" on-mouseleave="_mouseleaveItems" tabindex="-1">
-          <iron-selector id="selector" selected="{{selected}}" items="[[selectorItems]]">
-            <template is="dom-repeat" sort="[[sortFn]]" items="[[filteredItems]]" on-dom-change="_updateItems">
+        <paper-material
+          hidden$="[[_hideResults]]"
+          elevation="[[elevation]]"
+          on-mousedown="_mouseDownItems"
+          on-mouseleave="_mouseleaveItems"
+          tabindex="-1">
+          <iron-selector
+            id="selector"
+            selected="{{selected}}"
+            items="[[selectorItems]]">
+            <template
+              is="dom-repeat"
+              sort="[[sortFn]]"
+              items="[[filteredItems]]"
+              on-dom-change="_updateItems">
               <paper-item on-mouseenter="_mouseenterItem" class="selectable" tabindex="-1">
                 <span>[[getDataDisplayValue(item, dataKey)]]</span>
               </paper-item>
