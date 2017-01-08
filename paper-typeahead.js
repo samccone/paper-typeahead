@@ -159,8 +159,11 @@
 
     /**
      * @private
+     * @param {Event} e
      */
-    _upPressed: function() {
+    _upPressed: function(e) {
+      e.preventDefault();
+
       if (!this._hideResults) {
         this.$.selector.selectPrevious();
         this.value = this.selected && this.arrowsUpdateInput ?
@@ -170,8 +173,11 @@
 
     /**
      * @private
+     * @param {Event} e
      */
-    _downPressed: function() {
+    _downPressed: function(e) {
+      e.preventDefault();
+
       if (!this._hideResults) {
         this.$.selector.selectNext();
         this.value = this.selected && this.arrowsUpdateInput ?
