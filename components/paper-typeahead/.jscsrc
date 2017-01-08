@@ -1,0 +1,6 @@
+{
+  "preset": "google",
+  "jsDoc": {
+    "checkAnnotations": "closurecompiler"
+  }
+}

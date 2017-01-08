@@ -1,0 +1,33 @@
+{
+  "name": "paper-typeahead",
+  "dependencies": {
+    "polymer": "^1.7.0",
+    "iron-menu-behavior": "polymerelements/iron-menu-behavior#~1.0.4",
+    "paper-input": "PolymerElements/paper-input#~1.0.14",
+    "paper-item": "PolymerElements/paper-item#~1.0.5",
+    "paper-styles": "PolymerElements/paper-styles#~1.0.11",
+    "paper-material": "PolymerElements/paper-material#~1.0.2",
+    "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#~1.0.6",
+    "iron-selector": "PolymerElements/iron-selector#~1.0.8",
+    "iron-behaviors": "PolymerElements/iron-behaviors#~1.0.9",
+    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#~1.0.4"
+  },
+  "devDependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#~1.1.1",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+  },
+  "resolutions": {
+    "paper-styles": "^1.1.0"
+  },
+  "homepage": "https://github.com/samccone/paper-typeahead",
+  "_release": "63a18ce4b8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "63a18ce4b892bdd4bef8a26b9bdaefcadfec60b5"
+  },
+  "_source": "git://github.com/samccone/paper-typeahead.git",
+  "_target": "master",
+  "_originalSource": "samccone/paper-typeahead",
+  "_direct": true
+}
