@@ -1,6 +1,6 @@
 {
   "name": "paper-typeahead",
-  "version": "v0.5.2",
+  "version": "v0.5.3",
   "dependencies": {
     "polymer": "^1.7.0",
     "iron-menu-behavior": "polymerelements/iron-menu-behavior#~1.0.4",
