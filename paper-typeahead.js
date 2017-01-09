@@ -1,4 +1,5 @@
 /**
+ * @license
  * Copyright 2016 Google Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,9 +69,9 @@
       /**
        * If defined by a user, function is invoked on every keypress. The result of the function
        * is expected to be a Promise that resolves the a data array.
+       * @type {Function<Promise<Array<?>>>|Boolean}
        */
       fetchData: {
-        type: Function,
         value: false
       },
 
@@ -219,8 +220,7 @@
      * @param {number} maxResults
      * @param {boolean} typeaheadDisabled
      * @param {string} dataKey
-     * @param {Function<Promise<Array<?>>>} fetchData
-     * @return {Array}
+     * @param {Function<Promise<Array<?>>>|Boolean} fetchData
      */
     _calculateFilteredData: function(
       data,
@@ -236,8 +236,11 @@
           return [];
         }
 
-        if (fetchData !== false) {
-          return this.fetchData(typedValue);
+        if (typeof fetchData === 'function') {
+          let fetcher = /** @type{Function<Promise<Array<?>>>} */ (
+              this.fetchData);
+
+          return fetcher(typedValue);
         }
 
         return data.base;
@@ -336,8 +339,8 @@
 
     /**
      * @private
-     * @param {!Array<?>} data
-     * @param {string} dataKey
+     * @param {!string|!Object} data
+     * @param {!string} dataKey
      */
     _getDataItemValue: function(data, dataKey) {
       if (this.dataKey === '') {
@@ -347,11 +350,11 @@
       const splitKey = this.dataKey.split('.');
 
       if (splitKey.length === 1) {
-        return data[dataKey];
+        return /** @type {!Object} */ (data)[dataKey];
       }
 
       return splitKey.slice(1).reduce((prev, curr) => {
-        return prev[curr];
+        return /** @type {!Object} */ (prev)[curr];
       }, data[splitKey[0]]);
     },
   });
