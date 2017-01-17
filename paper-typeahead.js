@@ -249,8 +249,18 @@
           this, results, typedValue, dataKey).slice(0, maxResults);
 
         this.set('filteredItems', filteredItems);
-        this.set('_hideResults', filteredItems.length === 0);
+        this.set('_hideResults', !this._canShowResults(filteredItems));
       });
+    },
+
+    /**
+     * @private
+     * @param {!Array<?>} results
+     * @return {boolean}
+     */
+    _canShowResults: function(results) {
+      return (document.activeElement === this.$.input ||
+          this.root.activeElement === this.$.input)
     },
 
     _updateItems: function() {
@@ -288,7 +298,7 @@
     tryDisplayResults: function() {
       var items = this.filteredItems;
 
-      if (this._hideResults && items && items.length) {
+      if (this._hideResults && this._canShowResults(items)) {
         this.set('_hideResults', false);
       }
 
