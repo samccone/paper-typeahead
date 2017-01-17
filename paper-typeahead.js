@@ -38,6 +38,9 @@
         value: false
       },
 
+      /**
+       * Allows a user to show all typeahead results even when there is no input.
+       */
       showEmptyResults: {
         type: Boolean,
         value: false
@@ -91,6 +94,9 @@
         value: '',
       },
 
+      /**
+       * The max number of results to show to pick from when showing selectable items.
+       */
       maxResults: {
         type: Number,
         value: 10
