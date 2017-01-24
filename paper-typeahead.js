@@ -265,8 +265,10 @@
      * @return {boolean}
      */
     _canShowResults: function(results) {
-      return (document.activeElement === this.$.input ||
-          this.root.activeElement === this.$.input)
+      let elmActive = (document.activeElement === this.$.input ||
+          this.root.activeElement === this.$.input);
+
+      return elmActive && results && results.length > 0;
     },
 
     _updateItems: function() {
