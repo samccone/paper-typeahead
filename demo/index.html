@@ -16,6 +16,13 @@
       <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
       <paper-typeahead label="which dog?" data="[[data]]"></paper-typeahead>
     </template>
+    <h1>List of string data with custom item template</h1>
+    <template id="dom-bind-two" is="dom-bind">
+      <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
+      <paper-typeahead label="which dog?" data="[[data]]">
+        <div id="custom-result-item">I am a dog</div>
+      </paper-typeahead>
+    </template>
     <h1>List of object data</h1>
     <pre>
     <code>

@@ -159,8 +159,10 @@ Custom property | Description | Default
             id="selector"
             selected="{{selected}}"
             items="[[selectorItems]]">
+            <content style="display:none"></content>
             <template
               is="dom-repeat"
+              id="item-list"
               sort="[[sortFn]]"
               items="[[filteredItems]]"
               on-dom-change="_updateItems">

@@ -156,6 +156,18 @@
       'typeaheadDisabled, dataKey, fetchData)',
     ],
 
+    attached: function() {
+      const customDOM = this.getContentChildren();
+
+      if (customDOM.length) {
+        const items = this.$['item-list'];
+
+        items.templatize(customDOM);
+        Polymer.Bind.prepareModel(items);
+        Polymer.Base.prepareModelNotifyPath(items);
+      }
+    },
+
     /**
      * @private
      * @param {Event} e
