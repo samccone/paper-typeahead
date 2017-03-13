@@ -25,7 +25,8 @@
       Polymer.IronA11yKeysBehavior,
       Polymer.PaperInputBehavior,
       Polymer.IronControlState,
-      Polymer.IronFormElementBehavior
+      Polymer.IronFormElementBehavior,
+      Polymer.Templatizer,
     ],
 
     properties: {
@@ -155,6 +156,18 @@
       '_calculateFilteredData(data.*, typedValue, filterFn, maxResults,' +
       'typeaheadDisabled, dataKey, fetchData)',
     ],
+
+    attached: function() {
+      if (!this.ctor) {
+        const childTemplate = this.queryEffectiveChildren('template');
+
+        if (childTemplate) {
+          const items = this.$['item-list'];
+          this.templatize(childTemplate);
+          items.templatize(childTemplate);
+        }
+      }
+    },
 
     /**
      * @private

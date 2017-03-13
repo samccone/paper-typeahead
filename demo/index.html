@@ -8,6 +8,13 @@
         font-family: Roboto, Helvetica Neue, Helvetica;
         font-weight: 100;
       }
+      .custom.result-item {
+        background: red;
+        color: #fff;
+      }
+      .custom.result-item.iron-selected {
+        background: teal;
+      }
     </style>
   </head>
   <body>
@@ -15,6 +22,18 @@
     <template id="sample" is="dom-bind">
       <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
       <paper-typeahead label="which dog?" data="[[data]]"></paper-typeahead>
+    </template>
+    <h1>List of string data with custom item template</h1>
+    <template id="dom-bind-two" is="dom-bind">
+      <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
+      <paper-typeahead label="which dog?" data="[[data]]">
+      <template>
+        <div
+            on-mouseenter="_mouseenterItem"
+            class="custom result-item selectable"
+            tabindex="-1">I am a dog [[item]]</div>
+       </template>
+      </paper-typeahead>
     </template>
     <h1>List of object data</h1>
     <pre>
