@@ -298,8 +298,9 @@
      */
     selectResult: function(itemIndex) {
       // Since the results can be sorted we need to normalize here.
-      var targetResult = this.filteredItems.sort(
-          this.sortFn || function() {})[itemIndex];
+      var targetResult = (this.sortFn
+                          ? this.filteredItems.sort(this.sortFn)
+                          : this.filteredItems)[itemIndex];
 
       if (targetResult === undefined) {
         this.fire('customvalentered', {target: this.typedValue});
