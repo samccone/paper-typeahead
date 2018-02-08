@@ -73,7 +73,7 @@
       /**
        * If defined by a user, function is invoked on every keypress. The result of the function
        * is expected to be a Promise that resolves the a data array.
-       * @type {Function<Promise<Array<?>>>|Boolean}
+       * @type {boolean|function(string): Promise<Array<?>>}
        */
       fetchData: {
         value: false
@@ -235,11 +235,11 @@
      * @private
      * @param {{base: Array<?>}} data
      * @param {string} typedValue
-     * @param {Function<Array>} filterFn
+     * @param {function(Array, string, string)} filterFn
      * @param {number} maxResults
      * @param {boolean} typeaheadDisabled
      * @param {string} dataKey
-     * @param {Function<Promise<Array<?>>>|Boolean} fetchData
+     * @param {boolean|function(string): !Promise<Array>} fetchData
      */
     _calculateFilteredData: function(
       data,
@@ -256,7 +256,7 @@
         }
 
         if (typeof fetchData === 'function') {
-          let fetcher = /** @type{Function<Promise<Array<?>>>} */ (
+          let fetcher = /** @type{function(string)} */ (
               this.fetchData);
 
           return fetcher(typedValue);
