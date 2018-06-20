@@ -30,33 +30,19 @@
     ],
 
     properties: {
-      sortFn: {
-        type: Function
-      },
+      sortFn: {type: Function},
 
-      arrowsUpdateInput: {
-        type: Boolean,
-        value: false
-      },
+      arrowsUpdateInput: {type: Boolean, value: false},
 
       /**
-       * Allows a user to show all typeahead results even when there is no input.
+       * Allows a user to show all typeahead results even when there is no
+       * input.
        */
-      showEmptyResults: {
-        type: Boolean,
-        value: false
-      },
+      showEmptyResults: {type: Boolean, value: false},
 
-      typedValue: {
-        type: String,
-        value: '',
-        notify: true
-      },
+      typedValue: {type: String, value: '', notify: true},
 
-      elevation: {
-        type: Number,
-        value: 1
-      },
+      elevation: {type: Number, value: 1},
 
       keyEventTarget: {
         type: Object,
@@ -65,30 +51,31 @@
         }
       },
 
-      typeaheadDisabled: {
-        type: Boolean,
-        value: false
-      },
+      typeaheadDisabled: {type: Boolean, value: false},
 
       /**
-       * If defined by a user, function is invoked on every keypress. The result of the function
-       * is expected to be a Promise that resolves the a data array.
+       * If defined by a user, function is invoked on every keypress. The result
+       * of the function is expected to be a Promise that resolves the a data
+       * array.
        * @type {boolean|function(string): Promise<Array<?>>}
        */
-      fetchData: {
-        value: false
-      },
+      fetchData: {value: false},
 
       data: {
         type: Array,
-        value: function() { return []; }
+        value: function() {
+          return [];
+        }
       },
 
       /**
-       * dataKey provides a way to index into your data objects and use a property for display.
+       * dataKey provides a way to index into your data objects and use a
+       * property for display.
        *
-       * For instance if you had an array [{color: 'red'}, {color: 'pink'}], you would set the dataKey to 'color'
-       * In more complex situations you can do the following, 'color.name' which will extract from {color: {name: 'red'}}.
+       * For instance if you had an array [{color: 'red'}, {color: 'pink'}], you
+       * would set the dataKey to 'color' In more complex situations you can do
+       * the following, 'color.name' which will extract from {color: {name:
+       * 'red'}}.
        */
       dataKey: {
         type: String,
@@ -96,12 +83,10 @@
       },
 
       /**
-       * The max number of results to show to pick from when showing selectable items.
+       * The max number of results to show to pick from when showing selectable
+       * items.
        */
-      maxResults: {
-        type: Number,
-        value: 10
-      },
+      maxResults: {type: Number, value: 10},
 
       filteredItems: {
         type: Array,
@@ -127,16 +112,11 @@
         }
       },
 
-      selectorItems: {
-        type: Array
-      },
+      selectorItems: {type: Array},
 
       // private because we don't want the user to
       // set it true if there is no results
-      _hideResults: {
-        type: Boolean,
-        value: true
-      },
+      _hideResults: {type: Boolean, value: true},
     },
 
     keyBindings: {
@@ -154,7 +134,7 @@
 
     observers: [
       '_calculateFilteredData(data.*, typedValue, filterFn, maxResults,' +
-      'typeaheadDisabled, dataKey, fetchData)',
+          'typeaheadDisabled, dataKey, fetchData)',
     ],
 
     attached: function() {
@@ -242,14 +222,8 @@
      * @param {boolean|function(string): !Promise<Array>} fetchData
      */
     _calculateFilteredData: function(
-      data,
-      typedValue,
-      filterFn,
-      maxResults,
-      typeaheadDisabled,
-      dataKey,
-      fetchData
-    ) {
+        data, typedValue, filterFn, maxResults, typeaheadDisabled, dataKey,
+        fetchData) {
       Promise.resolve().then(() => {
         if (typeaheadDisabled) {
           return [];
@@ -278,8 +252,10 @@
      * @return {boolean}
      */
     _canShowResults: function(results) {
-      let elmActive = (document.activeElement === this.$.input ||
-          this.root.activeElement === this.$.input);
+      let elmActive =
+          (document.activeElement === this ||
+           document.activeElement === this.$.input ||
+           this.root.activeElement === this.$.input);
 
       return elmActive && results && results.length > 0;
     },
