@@ -51,71 +51,73 @@ Custom property | Description | Default
 
 <dom-module id="paper-typeahead">
   <template>
-    <style>
-      :host {
-        @apply --paper-font-common-base;
-        --paper-input-container-label: {
-          z-index: -1;
-        };
+    <custom-style>
+      <style>
+        :host {
+          @apply --paper-font-common-base;
+          --paper-input-container-label: {
+            z-index: -1;
+          };
 
-        --paper-input-container-underline: {
-          z-index: -1;
-        };
+          --paper-input-container-underline: {
+            z-index: -1;
+          };
 
-        display: block;
-        position: relative;
-      }
-      input::-webkit-input-placeholder {
-        color: var(--paper-input-container-color, var(--secondary-text-color));
-      }
-      input:-moz-placeholder {
-        color: var(--paper-input-container-color, var(--secondary-text-color));
-      }
-      input::-moz-placeholder {
-        color: var(--paper-input-container-color, var(--secondary-text-color));
-      }
-      input:-ms-input-placeholder {
-        color: var(--paper-input-container-color, var(--secondary-text-color));
-      }
-      paper-input-container {
-        @apply --paper-typeahead-input;
-      }
-      paper-material {
-        border-radius: 0 0 2px 2px;
-        width: 100%;
-        margin-top: -6px;
-        position: absolute;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: var(--paper-typeahead-results-layer-max-height, auto);
-        @apply --paper-typeahead-results;
-      }
-      .iron-selected:not(paper-input-container) {
-        background: var(--paper-typeahead-result-selected-background, var(--paper-indigo-50));
-      }
-      paper-item[pressed] {
-        @apply --paper-typeahead-result-pressed;
-      }
-      paper-item {
-        cursor: pointer;
-        position: relative;
-        background: #fff;
-        @apply --paper-typeahead-result;
-        --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
-        --paper-item-selected-weight: var(--paper-typeahead-selected-weight, normal);
-        --paper-item-selected: var(--paper-typeahead-result-selected);
-        --paper-item-focused: var(--paper-typeahead-result-focused);
-      }
-      paper-item:not(:last-of-type) {
-        border-bottom: solid 1px var(--paper-typeahead-divider-color, var(--divider-color));
-      }
-      paper-item:focus:before {
-        display: none;
-      }
-      [hidden] {
-        display: none;
-      }
-    </style>
+          display: block;
+          position: relative;
+        }
+        input::-webkit-input-placeholder {
+          color: var(--paper-input-container-color, var(--secondary-text-color));
+        }
+        input:-moz-placeholder {
+          color: var(--paper-input-container-color, var(--secondary-text-color));
+        }
+        input::-moz-placeholder {
+          color: var(--paper-input-container-color, var(--secondary-text-color));
+        }
+        input:-ms-input-placeholder {
+          color: var(--paper-input-container-color, var(--secondary-text-color));
+        }
+        paper-input-container {
+          @apply --paper-typeahead-input;
+        }
+        paper-material {
+          border-radius: 0 0 2px 2px;
+          width: 100%;
+          margin-top: -6px;
+          position: absolute;
+          overflow: auto;
+          -webkit-overflow-scrolling: touch;
+          max-height: var(--paper-typeahead-results-layer-max-height, auto);
+          @apply --paper-typeahead-results;
+        }
+        .iron-selected:not(paper-input-container) {
+          background: var(--paper-typeahead-result-selected-background, var(--paper-indigo-50));
+        }
+        paper-item[pressed] {
+          @apply --paper-typeahead-result-pressed;
+        }
+        paper-item {
+          cursor: pointer;
+          position: relative;
+          background: #fff;
+          @apply --paper-typeahead-result;
+          --paper-item-min-height: var(--paper-typeahead-result-min-height, 30px);
+          --paper-item-selected-weight: var(--paper-typeahead-selected-weight, normal);
+          --paper-item-selected: var(--paper-typeahead-result-selected);
+          --paper-item-focused: var(--paper-typeahead-result-focused);
+        }
+        paper-item:not(:last-of-type) {
+          border-bottom: solid 1px var(--paper-typeahead-divider-color, var(--divider-color));
+        }
+        paper-item:focus:before {
+          display: none;
+        }
+        [hidden] {
+          display: none;
+        }
+      </style>
+    </custom-style>
     <paper-input-container
         class="selectable"
         no-label-float="[[noLabelFloat]]"
@@ -153,7 +155,7 @@ Custom property | Description | Default
           readonly$="[[readonly]]"
           size$="[[size]]"
           autocapitalize$="[[autocapitalize]]"
-          autocorrect$="on"
+          autocorrect="on"
           on-change="_onChange" slot="input">
       <slot name="suffix" slot="suffix"></slot>
       <paper-input-error tabindex="-1" slot="input">[[errorMessage]]</paper-input-error>
@@ -163,7 +165,8 @@ Custom property | Description | Default
       elevation="[[elevation]]"
       on-mousedown="_mouseDownItems"
       on-mouseleave="_mouseleaveItems"
-      tabindex="-1" slot="input">
+      tabindex="-1"
+      slot="input">
       <iron-selector
         id="selector"
         selected="{{selected}}"

@@ -130,6 +130,10 @@
       'iron-activate': '_itemPressed',
       'focus': '_onFocus',
       'blur': '_onBlur',
+      // Note: This event is only available in the 1.0 version of this element.
+      // In 2.0, the functionality of `_onIronInputReady` is done in
+      // PaperInputBehavior::attached.
+      'iron-input-ready': '_onIronInputReady'
     },
 
     observers: [
@@ -143,9 +147,65 @@
 
         if (childTemplate) {
           const items = this.$['item-list'];
-          this.templatize(childTemplate);
-          items.templatize(childTemplate);
+          this.templatize(/** @type {!HTMLTemplateElement} */ (childTemplate));
+          items.templatize(/** @type {!HTMLTemplateElement} */ (childTemplate));
         }
+      }
+    },
+
+    /**
+     * Polymer hybrid mode code copied from
+     * https://github.com/PolymerElements/paper-input/blob/2.x/paper-input.html
+     */
+
+    beforeRegister: function() {
+      // Copied from
+      // https://github.com/PolymerElements/paper-input/blob/2.x/paper-input.html#L285
+      //
+      // We need to tell which kind of of template to stamp based on
+      // what kind of `iron-input` we got, but because of polyfills and
+      // custom elements differences between v0 and v1, the safest bet is
+      // to check a particular method we know the iron-input#2.x can have.
+      // If it doesn't have it, then it's an iron-input#1.x.
+      const ironInput = document.createElement('iron-input');
+      const version =
+          typeof ironInput._initSlottedInput == 'function' ? 'v2' : 'v1';
+      const template = Polymer.DomModule.import('paper-typeahead', 'template');
+      const inputTemplate =
+          Polymer.DomModule.import('paper-typeahead', 'template#' + version);
+      const inputPlaceholder =
+          template.content.querySelector('#template-placeholder');
+      if (inputPlaceholder) {
+        inputPlaceholder.parentNode.replaceChild(
+            inputTemplate.content, inputPlaceholder);
+      }
+      // else it's already been processed, probably in superclass
+    },
+
+    /**
+     * Returns a reference to the focusable element. Overridden from
+     * PaperInputBehavior to correctly focus the native input.
+     *
+     * @return {!HTMLElement}
+     */
+    get _focusableElement() {
+      return Polymer.Element ? this.inputElement._inputElement :
+                               this.inputElement;
+    },
+
+    _onIronInputReady: function() {
+      // Even though this is only used in the next line, save this for
+      // backwards compatibility, since the native input had this ID until 2.0.5.
+      if (!this.$.nativeInput) {
+        this.$.nativeInput = this.$$('input');
+      }
+      if (this.inputElement &&
+          this._typesThatHaveText.indexOf(this.$.nativeInput.type) !== -1) {
+        this.alwaysFloatLabel = true;
+      }
+      // Only validate when attached if the input already has a value.
+      if (!!this.inputElement.bindValue) {
+        this.$.container._handleValueAndAutoValidate(this.inputElement);
       }
     },
 
@@ -224,26 +284,30 @@
     _calculateFilteredData: function(
         data, typedValue, filterFn, maxResults, typeaheadDisabled, dataKey,
         fetchData) {
-      Promise.resolve().then(() => {
-        if (typeaheadDisabled) {
-          return [];
-        }
+      Promise.resolve()
+          .then(() => {
+            if (typeaheadDisabled) {
+              return [];
+            }
 
-        if (typeof fetchData === 'function') {
-          let fetcher = /** @type{function(string)} */ (
-              this.fetchData);
+            if (typeof fetchData === 'function') {
+              let fetcher = /** @type{function(string)} */ (this.fetchData);
 
-          return fetcher(typedValue);
-        }
+              return fetcher(typedValue);
+            }
 
-        return data.base;
-      }).then(results => {
-        const filteredItems = filterFn.call(
-          this, results, typedValue, dataKey).slice(0, maxResults);
+            return data.base;
+          })
+          .then(results => {
+            if (results) {
+              const filteredItems =
+                  filterFn.call(this, results, typedValue, dataKey)
+                      .slice(0, maxResults);
 
-        this.set('filteredItems', filteredItems);
-        this.set('_hideResults', !this._canShowResults(filteredItems));
-      });
+              this.set('filteredItems', filteredItems);
+              this.set('_hideResults', !this._canShowResults(filteredItems));
+            }
+          });
     },
 
     /**
@@ -254,8 +318,8 @@
     _canShowResults: function(results) {
       let elmActive =
           (document.activeElement === this ||
-           document.activeElement === this.$.input ||
-           this.root.activeElement === this.$.input);
+           document.activeElement === this._focusableElement ||
+           this.root.activeElement === this._focusableElement);
 
       return elmActive && results && results.length > 0;
     },
@@ -342,7 +406,7 @@
      * @private
      */
     _onLabelTap: function() {
-      this.$.input.focus();
+      this._focusableElement.focus();
     },
 
     /**
